@@ -565,16 +565,16 @@ This http header is mandatory to play MP4 video files or MP3 audio files over ht
 
 The SAS locators are created using the Azure Media Services SDK for a period of time.
 
-                    try
-                    {
-                        tempLocator = _context.Locators.Create(LocatorType.Sas, asset, AccessPermissions.Read, TimeSpan.FromHours(DurationinHours));
-                        tempAsset = asset;
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine(string.Format("Exception when creating a SAS Locator for asset Id: '{0}' Exception: {1} ", asset.Id, ex.Message), true);
-                        tempAsset = null;
-                    }
+        try
+        {
+            tempLocator = _context.Locators.Create(LocatorType.Sas, asset, AccessPermissions.Read, TimeSpan.FromHours(DurationinHours));
+            tempAsset = asset;
+        }
+        catch (Exception ex)
+        {
+            TextBoxLogWriteLine(string.Format("Exception when creating a SAS Locator for asset Id: '{0}' Exception: {1} ", asset.Id, ex.Message), true);
+            tempAsset = null;
+        }
 
 
 As so far the application will only play MP4, MP3 and subtitile files (WEBVTT), it's not necessary to activate the Azure Media Services Streaming End Point, the files will be streamed directly from the SAS locator which improve the business model associated with the application.
@@ -598,49 +598,44 @@ The following fields have been indexed:
 Sample source code below in C#:
 
 
-                var definition = new Microsoft.Azure.Search.Models.Index()
-                {
-                    Name = "media",
-                    Fields = new[]
-                    {
-                        new Microsoft.Azure.Search.Models.Field("keyId", Microsoft.Azure.Search.Models.DataType.String)                       {   IsKey = true  },
-                        new Microsoft.Azure.Search.Models.Field("mediaId", Microsoft.Azure.Search.Models.DataType.String)                       {   IsFilterable = true,  IsSortable = true  },
-                        new Microsoft.Azure.Search.Models.Field("mediaName", Microsoft.Azure.Search.Models.DataType.String)                     { IsFilterable = true,  IsSortable = true },
-                        new Microsoft.Azure.Search.Models.Field("mediaUrl", Microsoft.Azure.Search.Models.DataType.String)                       { IsFilterable = true},
-                        new Microsoft.Azure.Search.Models.Field("isAudio", Microsoft.Azure.Search.Models.DataType.Boolean)                       {IsFilterable = true},
-                        new Microsoft.Azure.Search.Models.Field("subtitleUrl", Microsoft.Azure.Search.Models.DataType.String)                       { IsFilterable = true},
-                        new Microsoft.Azure.Search.Models.Field("subtitleLanguage", Microsoft.Azure.Search.Models.DataType.String)                   { IsFilterable = true},
-                        new Microsoft.Azure.Search.Models.Field("subtitleStartTime", Microsoft.Azure.Search.Models.DataType.String)                   { IsSortable = true},
-                        new Microsoft.Azure.Search.Models.Field("subtitleEndTime", Microsoft.Azure.Search.Models.DataType.String)                   { IsSortable = true},
-                        new Microsoft.Azure.Search.Models.Field("subtitleContent", Microsoft.Azure.Search.Models.DataType.String)                   { IsSearchable = true}
-                    }
-                };
+        var definition = new Microsoft.Azure.Search.Models.Index()
+        {
+             Name = "media",
+             Fields = new[]
+             {
+               new Microsoft.Azure.Search.Models.Field("keyId", Microsoft.Azure.Search.Models.DataType.String)                       {   IsKey = true  },
+               new Microsoft.Azure.Search.Models.Field("mediaId", Microsoft.Azure.Search.Models.DataType.String)                       {   IsFilterable = true,  IsSortable = true  },
+               new Microsoft.Azure.Search.Models.Field("mediaName", Microsoft.Azure.Search.Models.DataType.String)                     { IsFilterable = true,  IsSortable = true },
+               new Microsoft.Azure.Search.Models.Field("mediaUrl", Microsoft.Azure.Search.Models.DataType.String)                       { IsFilterable = true},
+               new Microsoft.Azure.Search.Models.Field("isAudio", Microsoft.Azure.Search.Models.DataType.Boolean)                       {IsFilterable = true},
+               new Microsoft.Azure.Search.Models.Field("subtitleUrl", Microsoft.Azure.Search.Models.DataType.String)                       { IsFilterable = true},
+               new Microsoft.Azure.Search.Models.Field("subtitleLanguage", Microsoft.Azure.Search.Models.DataType.String)                   { IsFilterable = true},
+               new Microsoft.Azure.Search.Models.Field("subtitleStartTime", Microsoft.Azure.Search.Models.DataType.String)                   { IsSortable = true},
+               new Microsoft.Azure.Search.Models.Field("subtitleEndTime", Microsoft.Azure.Search.Models.DataType.String)                   { IsSortable = true},
+               new Microsoft.Azure.Search.Models.Field("subtitleContent", Microsoft.Azure.Search.Models.DataType.String)                   { IsSearchable = true}
+              }
+        };
 
-                try
-                {
-
-
-                    var response = _searchContext.Indexes.CreateWithHttpMessagesAsync(definition);
-                    if (response != null)
-                    {
-                        response.Wait();
-                        if ((response.Result != null) && (response.Result.Response != null))
-                        {
-                            if (response.Result.Response.StatusCode == System.Net.HttpStatusCode.Created)
-                            {
-                                _indexClient = _searchContext.Indexes.GetClient("media");
-                                result = true;
-                            }
-                        }
-                    }
-
-
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Exception while creating Azure Search Index: " + ex.Message + " " + ex.InnerException.Message, true);
-                }
-
+        try
+        {
+             var response = _searchContext.Indexes.CreateWithHttpMessagesAsync(definition);
+             if (response != null)
+             {
+                  response.Wait();
+                  if ((response.Result != null) && (response.Result.Response != null))
+                  {
+                      if (response.Result.Response.StatusCode == System.Net.HttpStatusCode.Created)
+                      {
+                         _indexClient = _searchContext.Indexes.GetClient("media");
+                         result = true;
+                      }
+                  }
+             }
+        }
+        catch (Exception ex)
+		{
+            TextBoxLogWriteLine("Exception while creating Azure Search Index: " + ex.Message + " " + ex.InnerException.Message, true);
+        }
 
 
 With Azure Search the application offers the following use case to the operator:
