@@ -410,7 +410,7 @@ Once all the subtitles associated with your video or audio files are generated, 
 
 ### Mandarine Bot
 
-'<to be completed>'
+"{to be completed}"
 
 
 ## Technical delivery ##
@@ -499,19 +499,19 @@ https://github.com/flecoqui/azure/blob/master/Samples/TestAzureMediaIndexer/Test
 
  
 ### Azure Search APIs ###
-'<to be completed>'
+"{to be completed}"
 
 ### Microsoft Bot Framework ###
-'<to be completed>'
+"{to be completed}"
 
 ### Azure Storage and SAS locator ###
-'<to be completed>'
+"{to be completed}"
 
 ### Learnings from the Mandarine's team
 
 Florent Petit Mandarine's CTO:
 *Azure c'est fantastique!*
-'<to be completed>'
+"{to be completed}"
 
 ## Conclusion ##
 
