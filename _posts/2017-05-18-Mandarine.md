@@ -410,7 +410,7 @@ Once all the subtitles associated with your video or audio files are generated, 
 
 ### Mandarine Bot
 
-- to be completed -
+'<to be completed>'
 
 
 ## Technical delivery ##
@@ -499,20 +499,19 @@ https://github.com/flecoqui/azure/blob/master/Samples/TestAzureMediaIndexer/Test
 
  
 ### Azure Search APIs ###
-- to be completed -
+'<to be completed>'
 
 ### Microsoft Bot Framework ###
-- to be completed -
+'<to be completed>'
 
 ### Azure Storage and SAS locator ###
-- to be completed -
+'<to be completed>'
 
 ### Learnings from the Mandarine's team
-- to be completed -
 
 Florent Petit Mandarine's CTO:
 *Azure c'est fantastique!*
- - to be completed -
+'<to be completed>'
 
 ## Conclusion ##
 
@@ -538,16 +537,16 @@ Below a list of services which could improve Mandarine's services:
 ## Additional resources ##
 Below a list of links to resources used by the team:
 - Azure Media Services Explorer:</p>
-https://github.com/Azure/Azure-Media-Services-Explorer 
+https://github.com/Azure/Azure-Media-Services-Explorer </p>
 - Azure ARM template to deploy Azure Media Services, Cognitive Services - Translator Text API, Azure Search: </p>
-https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive
+https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive </p>
 - Sample Application to generate automatically subtitles files in several languages from an original video or audio file using Azure Services:</p>
-https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer
+https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer </p>
 - Speech-To-Text UWP Sample Application:</p>
-https://github.com/flecoqui/Windows10/tree/master/Samples/SpeechToTextUWPSampleApp 
+https://github.com/flecoqui/Windows10/tree/master/Samples/SpeechToTextUWPSampleApp </p>
 - Text Translator UWP Sample Application:</p>
-https://github.com/flecoqui/Windows10/tree/master/Samples/TranslatorTextUWPSampleApp
+https://github.com/flecoqui/Windows10/tree/master/Samples/TranslatorTextUWPSampleApp </p>
 - Speech-To-Text Javascript Sample Application:</p>
-https://github.com/davrous/BingSpeech 
+https://github.com/davrous/BingSpeech </p>
 - PHP Text Translation Sample </p>
-https://github.com/MicrosoftTranslator/HTTP-Code-Samples 
+https://github.com/MicrosoftTranslator/HTTP-Code-Samples </p>
