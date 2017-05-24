@@ -633,7 +633,7 @@ Sample source code below in C#:
              }
         }
         catch (Exception ex)
-		{
+        {
             TextBoxLogWriteLine("Exception while creating Azure Search Index: " + ex.Message + " " + ex.InnerException.Message, true);
         }
 
