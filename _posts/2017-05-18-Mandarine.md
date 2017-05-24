@@ -15,7 +15,7 @@ geolocation: France
 permalink: https://microsoft.github.io/techcasestudies/mandarine.html
 ---
 
-Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering online training services to update the current Mandarine's backend to support:</p>
+Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering online training courses to update the current Mandarine's backend. The new backend does support:</p>
 - an automated multi-languages subtitles generation for training videos</p>
 - a personalized journey for each user amongst the catalog of MOOCs</p>
 
