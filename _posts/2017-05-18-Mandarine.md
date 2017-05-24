@@ -26,7 +26,7 @@ The solution relies on :</p>
 - [Microsoft Bot Framework](https://dev.botframework.com/) : Used to implement Mandarine Academy Bot (called Mike) and supporting Web Chat and Skype connectors </p>
  
 
- ![Team]({{ site.baseurl }}/images/2017-05-18-Mandarine/picture2.png)
+ ![Team](/images/2017-05-18-Mandarine/picture2.png)
 
 
 Mandarine's backend is currently based on:</p>
@@ -52,13 +52,13 @@ Mandarine's backend is currently based on:</p>
 
 **Mandarine Academy**
 
- ![Team]({{ site.baseurl }}/images/mandarine_logo.png)
+ ![Team](/images/mandarine_logo.png)
 
  [Mandarine Web Site](https://mandarine.academy/en/)
  
  Mandarine Academy guides companies in their digital transformation. From free MOOC services to personalized corporate serivdes, Mandarine Academy provides the best tailored services to train their employees. The solution is based on a combination of the latest technologies, such as video conferencing, web conferencing, e-learning and machine learning.
 
- ![Team]({{ site.baseurl }}/images/2017-05-18-Mandarine/mandarine.png)
+ ![Team](/images/2017-05-18-Mandarine/mandarine.png)
  
 ## Problem statement ##
 
@@ -489,28 +489,175 @@ If necessary the WEBVTT subtitle file will be updated on store in the same SAS l
 
 ### Cognitive Services APIs ###
 
+The component which translates the subtitle in different languages relies on Cognitive Services Text Translator	API:
+
+The request uri is 	https://api.microsofttranslator.com/V2/Http.svc/Translate 
+
+Information about the method here:
 
 http://docs.microsofttranslator.com/text-translate.html#!/default/get_Translate 
 
 
+As the size of the input text must not exceed 10000 characters, the subtitiles are translated one by one.
+Once the input WEBVTT file has been parsed, each subtitle is transmitted to the Cognitive Service as an input text.
+
+Below a sample code in C# which calls the Translator service for each subtitle:
+
+
+
+        async Task<string> GetTranslatedWEBVTT(string uri, string inputLanguage, string outputLanguage)
+        {
+            string translatedContent = string.Empty;
+            if (!string.IsNullOrEmpty(uri) && !string.IsNullOrEmpty(inputLanguage) && !string.IsNullOrEmpty(outputLanguage))
+            {
+                string content = await GetContent(uri);
+                if (!string.IsNullOrEmpty(content))
+                {
+                    TextBoxLogWriteLine("Original Subtitles downloaded");
+                    List<SubtitileItem> SubtitleList = ParseWEBVTT(content);
+                    if (SubtitleList.Count > 0)
+                    {
+                        TextBoxLogWriteLine("Original Subtitles parsed");
+                        translatedContent += "\xFEFF";
+                        translatedContent += "WEBVTT\r\n";
+                        SubtitileItem newItem = new SubtitileItem("", "", "");
+                        bool bError = false;
+                        foreach (SubtitileItem item in SubtitleList)
+                        {
+                            newItem.startTime = item.startTime;
+                            newItem.endTime = item.endTime;
+                            if (!string.IsNullOrEmpty(item.subtitle))
+                            {
+                                newItem.subtitle = await _ttc.Translate(item.subtitle, inputLanguage, outputLanguage);
+                                if (!string.IsNullOrEmpty(newItem.subtitle))
+                                {
+                                    translatedContent += newItem.ToString();
+                                }
+                                else
+                                {
+                                    bError = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (bError == true)
+                            TextBoxLogWriteLine("Error while translating subtitles at " + newItem.startTime);
+                        else
+                            TextBoxLogWriteLine("Translating subtitles done:" + translatedContent);
+                    }
+                }
+                else
+                    TextBoxLogWriteLine("Error while downloading subtitles: subtitle string empty");
+            }
+            return translatedContent;
+        }
+
+
+
+The same source code is available there on  github:
 
 https://github.com/flecoqui/azure/blob/master/Samples/TestAzureMediaIndexer/TestAzureMediaIndexer/Subtitle.cs#L205 
 
+### Azure Storage and SAS locator ###
 
- 
+As mentioned before, the media files (audio, video and subtitle file) are streamed from SAS locators which returns "Accept-Ranges: bytes" in the http headers. 
+This http header is mandatory to play MP4 video files or MP3 audio files over http with Chrome browser.
+
+The SAS locators are created using the Azure Media Services SDK for a period of time.
+
+                    try
+                    {
+                        tempLocator = _context.Locators.Create(LocatorType.Sas, asset, AccessPermissions.Read, TimeSpan.FromHours(DurationinHours));
+                        tempAsset = asset;
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine(string.Format("Exception when creating a SAS Locator for asset Id: '{0}' Exception: {1} ", asset.Id, ex.Message), true);
+                        tempAsset = null;
+                    }
+
+
+As so far the application will only play MP4, MP3 and subtitile files (WEBVTT), it's not necessary to activate the Azure Media Services Streaming End Point, the files will be streamed directly from the SAS locator which improve the business model associated with the application.
+
+
 ### Azure Search APIs ###
-"{to be completed}"
+
+Once the subtitles are translated in the different languages, it's valuable to use Azure Search to index all the subtitiles files in the different languages.
+
+The following fields have been indexed:
+
+1. The name of the input video or audio file
+2. The url of the input video or audio file in the SAS locator
+3. A flag which indicates whether the content is an audio file in order to use the audio player instead of Azure Media Player
+4. The url of the subitile file in the SAS locator
+5. The language of the subtitle File
+6. The start time of the Subtitle
+7. The end time of the Subtitle
+8. The subtitile
+
+Sample source code below in C#:
+
+
+                var definition = new Microsoft.Azure.Search.Models.Index()
+                {
+                    Name = "media",
+                    Fields = new[]
+                    {
+                        new Microsoft.Azure.Search.Models.Field("keyId", Microsoft.Azure.Search.Models.DataType.String)                       {   IsKey = true  },
+                        new Microsoft.Azure.Search.Models.Field("mediaId", Microsoft.Azure.Search.Models.DataType.String)                       {   IsFilterable = true,  IsSortable = true  },
+                        new Microsoft.Azure.Search.Models.Field("mediaName", Microsoft.Azure.Search.Models.DataType.String)                     { IsFilterable = true,  IsSortable = true },
+                        new Microsoft.Azure.Search.Models.Field("mediaUrl", Microsoft.Azure.Search.Models.DataType.String)                       { IsFilterable = true},
+                        new Microsoft.Azure.Search.Models.Field("isAudio", Microsoft.Azure.Search.Models.DataType.Boolean)                       {IsFilterable = true},
+                        new Microsoft.Azure.Search.Models.Field("subtitleUrl", Microsoft.Azure.Search.Models.DataType.String)                       { IsFilterable = true},
+                        new Microsoft.Azure.Search.Models.Field("subtitleLanguage", Microsoft.Azure.Search.Models.DataType.String)                   { IsFilterable = true},
+                        new Microsoft.Azure.Search.Models.Field("subtitleStartTime", Microsoft.Azure.Search.Models.DataType.String)                   { IsSortable = true},
+                        new Microsoft.Azure.Search.Models.Field("subtitleEndTime", Microsoft.Azure.Search.Models.DataType.String)                   { IsSortable = true},
+                        new Microsoft.Azure.Search.Models.Field("subtitleContent", Microsoft.Azure.Search.Models.DataType.String)                   { IsSearchable = true}
+                    }
+                };
+
+                try
+                {
+
+
+                    var response = _searchContext.Indexes.CreateWithHttpMessagesAsync(definition);
+                    if (response != null)
+                    {
+                        response.Wait();
+                        if ((response.Result != null) && (response.Result.Response != null))
+                        {
+                            if (response.Result.Response.StatusCode == System.Net.HttpStatusCode.Created)
+                            {
+                                _indexClient = _searchContext.Indexes.GetClient("media");
+                                result = true;
+                            }
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Exception while creating Azure Search Index: " + ex.Message + " " + ex.InnerException.Message, true);
+                }
+
+
+
+With Azure Search the application offers the following use case to the operator:
+The operator search for a specific in the subtitle database, the service will return all the subtitles where this word has been pronounced.
+The information returned by the service:
+1. The url of the input video or audio file in the SAS locator
+2. The url of the subitile file in the SAS locator
+3. The start time of the Subtitle
+allow the operator to play the video or audio file at the timestamp when the word has been pronounced.
+
 
 ### Microsoft Bot Framework ###
 "{to be completed}"
 
-### Azure Storage and SAS locator ###
-"{to be completed}"
-
 ### Learnings from the Mandarine's team
 
-Florent Petit Mandarine's CTO:
-*Azure c'est fantastique!*
+Florent Petit Mandarine's CTO: For instance -> *With Azure Media Services and Cognitive Services Text Translator API, we decreased dramatically the time to publish our online training courses for our customers!*
 "{to be completed}"
 
 ## Conclusion ##
