@@ -410,9 +410,14 @@ Once all the subtitles associated with your video or audio files are generated, 
 
 ### Mandarine Bot
 
-#### Installing the Mandarine Bot backend service and Mandarine Web Site in Azure:
+#### Installing the Mandarine backend associated with Mandarine Bot and Mandarine Web Site in Azure:
 
-In order to activate the Mandarine Bot Services, you need to install the Azure Bot backend with all the services associated.
+The current Mandarine Web Site is hosted in Ubuntu virtual machines running Apache/PHP .
+The Mandarine Web Site will be extended to:
+- support a Web Chat control with the Mandarine Bot,
+- support a link to add the Mandarine Bot to your Skype contacts.
+
+In order to activate the Mandarine Bot Service, you need first to register your bot on Bot Framework Web Site https://dev.botframework.com/ and then install the Azure Bot backend with all the services associated.
 You can either use the Azure Portal to deploy manually all the Azure Services:
 
 https://portal.azure.com
