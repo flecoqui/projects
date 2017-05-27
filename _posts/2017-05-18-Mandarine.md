@@ -104,7 +104,7 @@ Below the architecture of Manadarine services using Azure:
 
 ### Subtitles generation 
 
-#### Installing the bakcend services in Azure:
+#### Installing the backend services in Azure:
 
 In order to generate the subtitles you need to install the Azure backend with all the services associated.
 You can either use the Azure Portal to deploy manually all the Azure Services:
@@ -410,6 +410,17 @@ Once all the subtitles associated with your video or audio files are generated, 
 
 ### Mandarine Bot
 
+#### Installing the Mandarine Bot backend service and Mandarine Web Site in Azure:
+
+In order to activate the Mandarine Bot Services, you need to install the Azure Bot backend with all the services associated.
+You can either use the Azure Portal to deploy manually all the Azure Services:
+
+https://portal.azure.com
+ 
+or you can use directly the Azure Resource Manager template available there:
+
+https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-samplebot-webchat
+
 This template allows you to deploy  Deploy a Web App hosting a sample Bot with Web Chat and Skype channels and a Virtual Machine running Linux (debian, ubuntu, centos, redhat) and an Apache/PHP server with Web Chat control and a link to Skype. All those resources will be deployed in the same region as the resource group.
 
 ![](/images/2017-05-18-Mandarine/2-architecture.png)
@@ -661,21 +672,6 @@ Now the Web App running your Bot has been deployed, you need to associate this W
 ![](/images/2017-05-18-Mandarine/7-test.png)
 
 
-
-
-#### DELETE THE RESOURCE GROUP:
-When you don't need to test your bot anymore, you can remove all those resources from Azure using Azure CLI.
-You can run the command below:
-
-azure group delete "ResourceGroupName" "RegionName"
-
-For instance:
-
-    azure group delete testbotgrp northeurope
-
-
-
-
 ## Technical delivery ##
 
 ### SDKs ###
@@ -685,6 +681,7 @@ The differents components used for this deployment are based on the following SD
 - [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php)
 - [Azure Search REST API](https://docs.microsoft.com/fr-fr/rest/api/searchservice/?redirectedfrom=MSDN)
 - [Cognitive Services REST Text Translator API](http://docs.microsofttranslator.com/text-translate.html)
+- [Bot Builder SDK for Node.js](https://docs.microsoft.com/en-us/bot-framework/nodejs/bot-builder-nodejs-quickstart#install-the-sdk)
 
 ### Azure Media Services APIs ###
 
