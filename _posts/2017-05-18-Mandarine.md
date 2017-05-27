@@ -56,7 +56,8 @@ Mandarine's backend is currently based on:</p>
 
  [Mandarine Web Site](https://mandarine.academy/en/)
  
- Mandarine Academy guides companies in their digital transformation. From free MOOC services to personalized corporate serivdes, Mandarine Academy provides the best tailored services to train their employees. The solution is based on a combination of the latest technologies, such as video conferencing, web conferencing, e-learning and machine learning.
+Created in 2008, Mandarine Academy guides companies in their digital transformation. 35 full-time employees are currently working at headquarters in Roubaix, France. From free MOOC services to personalized corporate services, Mandarine Academy provides the best tailored services to train all the employees. The solution is based on a combination of the latest technologies, such as video conferencing, web conferencing, e-learning and machine learning. 
+This hackfest is aligned with Mandarine strategic move operated earlier this year (Feb 2017), that led to the creation of a new logo, name, slogan and graphic interface that increased their visibility as a well-established player in the digital change and transformation arena. They also came with a reinforced teaching team, a broader range of solution and an international dimension with the opening of new offices in the United Kingdom, Poland, Canada and the United States. 
 
  ![Team](/images/2017-05-18-Mandarine/mandarine.png)
  
@@ -64,10 +65,10 @@ Mandarine's backend is currently based on:</p>
 
 Mandarine Academy has already published several hundred of MOOCs, they would like to add subtitles (SRT, WEBVTT, TTML) for each MOOC.
 Azure Media Indexer V2 seems the best approach and easiest approach to generate the subtitles directly from the original video.
-Once the native subtitles are available in the native language, using Cognitive Services Text Translator API, it’s possible to generate subtitles in different languages.
+Once the native subtitles are available in the native language. it becomes possible  to generate subtitles in different languages by using Cognitive Services Text Translator API,.
 Each MOOC Video will support up-to 8 subtitles languages. 
 For the first phase of this project, Mandarine won't use Adaptiuve Streaming protocol like Smooth Streaming, Dash or HLS. The MOOC Videos will be MP4 files delivered to the clients  in  progressive download mode.
-Azure Media Services Streaming End Point won't be used during this phase, the application will only use Azure Media Services SAS Locator to delvier the videos.
+Azure Media Services Streaming End Point won't be used during this phase, the application will only use Azure Media Services SAS Locator to deliver the videos.
 As today the generation of subtitles can't be fully automated, after each step, the Mandarine operator needs to check the generated subtitles:
 - subtitles generated with Azure Media Services Indexer V2
 - subtitles generated with Cognitive Services Text Translator API  
@@ -84,12 +85,12 @@ The Bot will address the subscribers connected to Mandarine Web Site and to Skyp
 
 ### Overall Architecture
 
-As the main objectif of this initiative is to enhance the existing Mandarine services, the architecture of this deployment will take into account all the legacy components technologies used by Mandarine services.
-For instance, the database server is based on MySQL Server and this server is hosted in Mandarine's datacenter. This training video files are hosted on a third party streaming platform.</p>
-On the technologies side, the servers are running Ubuntu, the Web Servers are based on Apache/PHP/Symfony. The backend services are developped using Node.js.THe Web Servers will be hosted in Azure. 
-The client application is actually a Web Application running in any browsers.
+As the main objective of this initiative is to enhance the existing Mandarine services, the architecture of this deployment will take into account all the legacy components technologies used by Mandarine services.
+For instance, the database server is based on MySQL Server and this server is hosted in Mandarine's datacenter. These training video files are hosted on a third-party streaming platform.</p>
+On the technologies side, the servers are running Ubuntu, the Web Servers are based on Apache/PHP/Symfony. The backend services are developed using Node.js.The Web Servers will be hosted in Azure. 
+The client application is actually a Web Application running in any browsers.</p>
 
-Beyond those legacy components the following Azure Serivces will be deployed:
+Beyond those legacy components, the following Azure Serivces will be deployed:
 1. Azure Azure Media Services </p>
 2. Azure Cognitive Services Text Translator key</p>
 3. Azure Search Services Account </p>
@@ -116,7 +117,7 @@ or you can use directly the Azure Resource Manager template available there:
 https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive
 
 This template allows you to deploy  a Web App, an Azure Media Services Account, an Azure Search Account and an Azure Text Translator service in the same region as the resource group.
-As Azure Media Services, Search Service and Cognitive Services are not deployed in all regions, it's recommanded to use the following regions:
+As Azure Media Services, Search Service and Cognitive Services are not deployed in all regions, it is recommended to use the following regions:
 West US, West Europe,Southeast Asia,West Central US 
 This template is associated with Windows Application which is used to generate automatically video subtitles in different languages fron an orginal video or audio file. Once generated the subtitles are stored in Azure Search to allow the users to find all the videos associated with a specific key word.
 This Application called TestAzureMediaIndexer is available there:
@@ -132,7 +133,7 @@ Using the two Azure CLI command lines below, you can deploy automatically all th
 
 Using the following parameters:
 
-Name prefix which will be used to create Azure Media Serivces Account, Azure Storage Account,  Azure Search Account, Azure Cognitive Services Text Translation Account:
+Name prefix which will be used to create Azure Media Services Account, Azure Storage Account,  Azure Search Account, Azure Cognitive Services Text Translation Account:
 
     "namePrefix": {
       "type": "string",
@@ -223,7 +224,7 @@ Azure Web App SKU:
     }
 
 
-Once the backend services are installed, the storage account where the video files and subtiles files will be stored needs to be manually configured to support CORS (Cross-Origin Resource Sharing) using the Azure portal:
+Once the backend services are installed, the storage account where the video files and subtitles files will be stored needs to be manually configured to support CORS (Cross-Origin Resource Sharing) using the Azure portal:
 
 1. Select the Storage Account of your new resource group:</p>
 ![](/images/2017-05-18-Mandarine/cors-0.png)
@@ -239,7 +240,7 @@ Moreover, the media files will be streamed from SAS locators which returns "Acce
 
 #### Testing the backend services with the applicaiton TestAzureMediaIndexer:
 
-This template is associated with Windows Application which is used to generate automatically video subtitles in different languages fron an orginal video or audio file. Once generated the subtitles are stored in Azure Search to allow the users to find all the videos associated with a specific key word.
+This template is associated with Windows Application which is used to generate automatically video subtitles in different languages fron an original video or audio file. Once generated the subtitles are stored in Azure Search to allow the users to find all the videos associated with a specific key word.
 This Application called TestAzureMediaIndexer is available there:
 https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer 
 
@@ -254,7 +255,7 @@ https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer
 1.  To debug the sample and then run it, press F5 or select **Debug** \> **Start Debugging**. To run the sample without debugging, press Ctrl+F5 or select **Debug** \> **Start Without Debugging**.
 
 **Downloading the binary**
-The binary associted with the application is available there:
+The binary associated with the application is available there:
 [ZIP file with the Application](https://github.com/flecoqui/azure/master/Samples/TestAzureMediaIndexer/Releases/Latestrelease.zip)
 
 1. You can download the zip file.</p>
@@ -267,23 +268,23 @@ This sample application is a basic Windows Application with one single page:
 ![](/images/2017-05-18-Mandarine/ui-0.png)
 
 
-#### Connect the application to the Azure Backedn
-In order to use the application you need to provide the following paramters to establish a connection with your backend in Azure:
-1. The Azure Media Serivces Account name</p>
-2. The Azure Media Serivces Account key</p>
+#### Connect the application to the Azure Backend
+In order to use the application you need to provide the following parameters to establish a connection with your backend in Azure:
+1. The Azure Media Services Account name</p>
+2. The Azure Media Services Account key</p>
 3. The Azure Cognitive Services Text Translator key</p>
-4. The Azure Search Serivces Account name</p>
-5. The Azure Search Serivces Account key</p>
+4. The Azure Search Services Account name</p>
+5. The Azure Search Services Account key</p>
 6. The url of the Web Player application hosted on the Web site of your backend, the url should be close to this format: http://YourWebAppName.azurewebsites.net/player.html
 
 ![](/images/2017-05-18-Mandarine/1-architecture-step-1.png)
 
 You can retrieve all the parameters below from the [Azure Portal:](https://portal.azure.com) </p>
-1. The Azure Media Serivces Account name</p>
-2. The Azure Media Serivces Account key</p>
+1. The Azure Media Services Account name</p>
+2. The Azure Media Services Account key</p>
 3. The Azure Cognitive Services Text Translator key</p>
-4. The Azure Search Serivces Account name</p>
-5. The Azure Search Serivces Account key</p>
+4. The Azure Search Services Account name</p>
+5. The Azure Search Services Account key</p>
 6. The url of the Web Player application hosted on the Web site </p>
 
 Follow the steps below to read the account names and the keys: </p>
@@ -300,8 +301,8 @@ Follow the steps below to read the account names and the keys: </p>
 Once all the parameters are ready click on the button "Connect" to establish the connection with your backend:
 ![](/images/2017-05-18-Mandarine/ui-1.png)
 
-#### Updload the audio and video assets
-Once the applicaiton is connected, the first step consists in uploading video or audio assets on your backend in Azure.
+#### Upload the audio and video assets
+Once the application is connected, the first step consists in uploading video or audio assets on your backend in Azure.
 
 ![](/images/2017-05-18-Mandarine/1-architecture-step-2.png)
 
@@ -315,7 +316,7 @@ Once the applicaiton is connected, the first step consists in uploading video or
 ![](/images/2017-05-18-Mandarine/ui-2-1.png)
 
 
-#### Generate the subtititles from audio and video assets
+#### Generate the subtitles from audio and video assets
 Once the video or audio file is uploaded, you can generate the subtitles with Azure Media Services Indexer 
 
 ![](/images/2017-05-18-Mandarine/1-architecture-step-3.png)
@@ -331,11 +332,11 @@ Once the video or audio file is uploaded, you can generate the subtitles with Az
 
 
 #### Update the generated subtitles with the Web Application 
-Once the subtile file is available, it's possible to update the subtitle file. The native format is WEBVTT, but it's still possible to convert a WEBVTT subtitle file into a TTML subtitle file.
+Once the subtitle file is available, it's possible to update the subtitle file. The native format is WEBVTT, but it's still possible to convert a WEBVTT subtitle file into a TTML subtitle file.
 
 ![](/images/2017-05-18-Mandarine/1-architecture-step-4.png)
 
-1. Click on the button **Play Video/Subtile** or **Play Audio/Subtile** </p> 
+1. Click on the button **Play Video/Subtitle** or **Play Audio/Subtitle** </p> 
 The Windows Application launches the Web Player Application 
 ![](/images/2017-05-18-Mandarine/ui-4.png)
 
@@ -343,36 +344,36 @@ The Windows Application launches the Web Player Application
 
 ![](/images/2017-05-18-Mandarine/ui-4-1.png)
 
-3. As sometimes the generated subtiles file needs to be updated, you can update each subtitle. Click on the **Pause** button.</p>
-4. Update the subtile, click on the button **Save**.</p>
+3. As sometimes the generated subtitles file needs to be updated, you can update each subtitle. Click on the **Pause** button.</p>
+4. Update the subtitle, click on the button **Save**.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-4-2.png)
 
-5. When all the subtitles are updated, you can save the subtile file on your machine in WEBVTT or TTML format.</p>
+5. When all the subtitles are updated, you can save the subtitle file on your machine in WEBVTT or TTML format.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-4-3.png)
 
-6. Once the subtile file is stored locally on your machine, you can update the subtitle file on Azure Storage when clicking on button **Update Subtitle**.</p>
+6. Once the subtitle file is stored locally on your machine, you can update the subtitle file on Azure Storage when clicking on button **Update Subtitle**.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-4-4.png)
 
 
 #### Translated the generated subtitles with Cognitive Services Text Translator
-Once the first subtile file associted with your audio or video file are correct, you can generate more subtitle files in different languages.
+Once the first subtitle file associted with your audio or video file are correct, you can generate more subtitle files in different languages.
  
 ![](/images/2017-05-18-Mandarine/1-architecture-step-5.png)
 
-1. Select the source subtile in the list box **List of Subtitle Assets**.</p>
+1. Select the source subtitle in the list box **List of Subtitle Assets**.</p>
 2. Select the language of your new subtitle file.</p>
 3. Click on the button **Translate subtitle** </p>
 
 ![](/images/2017-05-18-Mandarine/ui-5.png)
 
-4. After few seconds the new subtile file is displayed in the list box **List of Subtitle Assets**</p>
+4. After few seconds the new subtitle file is displayed in the list box **List of Subtitle Assets**</p>
 
 ![](/images/2017-05-18-Mandarine/ui-5-1.png)
 
-5. If you click on the button **Play Video/Subtile** or **Play Audio/Subtile** , you can playback the new subtitles.</p>
+5. If you click on the button **Play Video/subtitle** or **Play Audio/subtitle** , you can playback the new subtitles.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-5-2.png)
 
@@ -386,11 +387,11 @@ Once all the subtitles associated with your video or audio files are generated, 
  
 ![](/images/2017-05-18-Mandarine/1-architecture-step-6.png)
 
-1. First you need to create the Index associated with the subtiles. Click on the button **Create Index** to create the Index. This step is only required once. If you want to clear the Azure Search database you can click on **Delete Index** button.</p>
+1. First you need to create the Index associated with the subtitles. Click on the button **Create Index** to create the Index. This step is only required once. If you want to clear the Azure Search database you can click on **Delete Index** button.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-6.png)
 
-2. Once the Index is created, select the subtile file you want to import and click on the button **Populate the Index with subtiles**. You can repeat this step for each subtitle file.</p>
+2. Once the Index is created, select the subtitle file you want to import and click on the button **Populate the Index with subtitles**. You can repeat this step for each subtitle file.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-6-1.png)
 
@@ -398,7 +399,7 @@ Once all the subtitles associated with your video or audio files are generated, 
 
 ![](/images/2017-05-18-Mandarine/ui-6-2.png)
 
-4. If this word is present in any subtitle, the search list box is populated with all the subtile where this word has been pronounced.</p>
+4. If this word is present in any subtitle, the search list box is populated with all the subtitle where this word has been pronounced.</p>
 5. Select the subtitle in the list box and click on the button **Play Search**.</p>
 
 ![](/images/2017-05-18-Mandarine/ui-6-3.png)
@@ -681,7 +682,7 @@ Now the Web App running your Bot has been deployed, you need to associate this W
 
 ### SDKs ###
 
-The differents components used for this deployment are based on the following SDKs:
+The different components used for this deployment are based on the following SDKs:
 
 - [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php)
 - [Azure Search REST API](https://docs.microsoft.com/fr-fr/rest/api/searchservice/?redirectedfrom=MSDN)
@@ -743,7 +744,7 @@ Below an extract of a TTML file:
 
 
 Once generated the subtitles file and the input video/audio file are stored on a SAS (Shared Access Signature) locator in the Azure Storage Account associated with the Azure Media Services Account.
-As the Mandarine's deployment doesn't require Adaptive Streaming, it's not necessary to use the Azure Media Services Streaming End Point.
+As Mandarine's deployment doesn't require Adaptive Streaming, it's not necessary to use the Azure Media Services Streaming End Point.
 In order to play correctly a MP4 video file or MP3 audio file over http with a Web Application running in Chrome, the server hosting the MP4 file needs to return the http header "Accept-Ranges: bytes".
 It's the case if you store your MP4 files or MP3 files in a SAS locator.
 
@@ -763,7 +764,7 @@ Information about the method here:
 http://docs.microsofttranslator.com/text-translate.html#!/default/get_Translate 
 
 
-As the size of the input text must not exceed 10000 characters, the subtitiles are translated one by one.
+As the size of the input text must not exceed 10000 characters, the subtitles are translated one by one.
 Once the input WEBVTT file has been parsed, each subtitle is transmitted to the Cognitive Service as an input text.
 
 Below a sample code in C# which calls the Translator service for each subtitle:
@@ -779,15 +780,15 @@ Below a sample code in C# which calls the Translator service for each subtitle:
                 if (!string.IsNullOrEmpty(content))
                 {
                     TextBoxLogWriteLine("Original Subtitles downloaded");
-                    List<SubtitileItem> SubtitleList = ParseWEBVTT(content);
+                    List<SubtitleItem> SubtitleList = ParseWEBVTT(content);
                     if (SubtitleList.Count > 0)
                     {
                         TextBoxLogWriteLine("Original Subtitles parsed");
                         translatedContent += "\xFEFF";
                         translatedContent += "WEBVTT\r\n";
-                        SubtitileItem newItem = new SubtitileItem("", "", "");
+                        SubtitleItem newItem = new SubtitleItem("", "", "");
                         bool bError = false;
-                        foreach (SubtitileItem item in SubtitleList)
+                        foreach (SubtitleItem item in SubtitleList)
                         {
                             newItem.startTime = item.startTime;
                             newItem.endTime = item.endTime;
@@ -842,23 +843,23 @@ The SAS locators are created using the Azure Media Services SDK for a period of 
         }
 
 
-As so far the application will only play MP4, MP3 and subtitile files (WEBVTT), it's not necessary to activate the Azure Media Services Streaming End Point, the files will be streamed directly from the SAS locator which improve the business model associated with the application.
+As so far the application will only play MP4, MP3 and subtitle files (WEBVTT), it's not necessary to activate the Azure Media Services Streaming End Point, the files will be streamed directly from the SAS locator which improve the business model associated with the application.
 
 
 ### Azure Search APIs ###
 
-Once the subtitles are translated in the different languages, it's valuable to use Azure Search to index all the subtitiles files in the different languages.
+Once the subtitles are translated in the different languages, it's valuable to use Azure Search to index all the subtitles files in the different languages.
 
 The following fields have been indexed:
 
 1. The name of the input video or audio file
 2. The url of the input video or audio file in the SAS locator
 3. A flag which indicates whether the content is an audio file in order to use the audio player instead of Azure Media Player
-4. The url of the subitile file in the SAS locator
+4. The url of the subtitle file in the SAS locator
 5. The language of the subtitle File
 6. The start time of the Subtitle
 7. The end time of the Subtitle
-8. The subtitile
+8. The subtitle
 
 Sample source code below in C#:
 
@@ -907,7 +908,7 @@ With Azure Search the application offers the following use case to the operator:
 The operator search for a specific in the subtitle database, the service will return all the subtitles where this word has been pronounced.
 The information returned by the service:
 1. The url of the input video or audio file in the SAS locator
-2. The url of the subitile file in the SAS locator
+2. The url of the subtitle file in the SAS locator
 3. The start time of the Subtitle
 allow the operator to play the video or audio file at the timestamp when the word has been pronounced.
 
@@ -954,10 +955,10 @@ Florent Petit Mandarine's CTO: For instance -> *With Azure Media Services and Co
 
 ## Conclusion ##
 
-The main findings of this project are:
+The main insights of this project are:
 
 - Azure was flexible enough to interoperate with legacy services (existing on premises database, third party video streamer)
-- Thanks to the usage of ARM template, the Mandarine IT team can redelpoy the Backend Services in few minutes.
+- Thanks to the usage of ARM template, the Mandarine IT team can redeploy the Backend Services in few minutes.
 - As the Azure Media Player doesn't support playback of audio files (MP3, WMA), the solution supports not only subtitles with Video files (MP4, WMV) but also with Audio files (MP3, WMA) using the Web Player here: https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer  
 - Thanks to Azure Media Services Indexer V2 and Cognitive Services Text Translator the generation of subtitles has been almost automated, which has decreased dramatically the time to publish the videos.
 - Regarding Mike the Mandarine's Bot, it's too early to get any insights as the service will be online by the end of June.
