@@ -414,7 +414,7 @@ Once all the subtitles associated with your video or audio files are generated, 
 
 The current Mandarine Web Site is hosted in Ubuntu virtual machines running Apache/PHP .
 The Mandarine Web Site will be extended to:
-- support a Web Chat control with the Mandarine Bot,
+- support a Web Chat control connected to the Mandarine Bot,
 - support a link to add the Mandarine Bot to your Skype contacts.
 
 In order to activate the Mandarine Bot Service, you need first to register your bot on Bot Framework Web Site https://dev.botframework.com/ and then install the Azure Bot backend with all the services associated.
