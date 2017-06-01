@@ -948,11 +948,6 @@ The third parameter the App ID is used to embed the link to the Skype page to ad
 ```
 
 
-### Learnings from the Mandarine's team
-
-Florent Petit Mandarine's CTO: For instance -> *With Azure Media Services and Cognitive Services Text Translator API, we decreased dramatically the time to publish our online training courses for our customers!*
-"{to be completed}"
-
 ## Conclusion ##
 
 The main insights of this project are:
