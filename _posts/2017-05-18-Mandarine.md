@@ -15,7 +15,7 @@ geolocation: France
 permalink: https://microsoft.github.io/techcasestudies/mandarine.html
 ---
 
-Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering online training courses to update the current Mandarine's backend. The new backend does support:</p>
+Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering online training courses to update the current Mandarine's backend to allow new features for the frontend. The new backend does support:</p>
 - an automated multi-languages subtitles generation for training videos</p>
 - a personalized journey for each user amongst the catalog of MOOCs</p>
 
@@ -63,11 +63,11 @@ This hackfest is aligned with Mandarine strategic move operated earlier this yea
  
 ## Problem statement ##
 
-Mandarine Academy has already published several hundred of MOOCs, they would like to add subtitles (SRT, WEBVTT, TTML) for each MOOC.
+Mandarine Academy has already published several hundred of videos, they would like to add subtitles (SRT, WEBVTT, TTML) for each video.
 Azure Media Indexer V2 seems the best approach and easiest approach to generate the subtitles directly from the original video.
 Once the native subtitles are available in the native language. it becomes possible  to generate subtitles in different languages by using Cognitive Services Text Translator API,.
 Each MOOC Video will support up-to 8 subtitles languages. 
-For the first phase of this project, Mandarine won't use Adaptiuve Streaming protocol like Smooth Streaming, Dash or HLS. The MOOC Videos will be MP4 files delivered to the clients  in  progressive download mode.
+For the first phase of this project, Mandarine use Adaptive Streaming based on third-party platform and player. The MOOC Videos will be MP4 files delivered to the clients through the standard player.
 Azure Media Services Streaming End Point won't be used during this phase, the application will only use Azure Media Services SAS Locator to deliver the videos.
 As today the generation of subtitles can't be fully automated, after each step, the Mandarine operator needs to check the generated subtitles:
 - subtitles generated with Azure Media Services Indexer V2
@@ -76,7 +76,7 @@ After each step, the Manadarine operator must be able to update manually the sub
 
 Beyond the enhancement of their video content, Mandarine wants to improve the interactivity of their current Web Site. They want to personalize the journey of each user amongst the catalog of MOOCs. 
 For instance, they want to automatically refine the profile of each user.
-Their Bot (called Mike) will ask questions to complete the profile of each user.
+Their Bot (Project Name called Mike) will ask questions to complete the profile of each user.
 The Bot will also send notifications to users for instance when they are about to complete a level of training. 
 The Bot will address the subscribers connected to Mandarine Web Site and to Skype. 
 
@@ -86,7 +86,7 @@ The Bot will address the subscribers connected to Mandarine Web Site and to Skyp
 ### Overall Architecture
 
 As the main objective of this initiative is to enhance the existing Mandarine services, the architecture of this deployment will take into account all the legacy components technologies used by Mandarine services.
-For instance, the database server is based on MySQL Server and this server is hosted in Mandarine's datacenter. These training video files are hosted on a third-party streaming platform.</p>
+For instance, the database server is based on MySQL Server and this server is hosted in Azure's datacenter. These training video files are hosted on a third-party streaming platform.</p>
 On the technologies side, the servers are running Ubuntu, the Web Servers are based on Apache/PHP/Symfony. The backend services are developed using Node.js.The Web Servers will be hosted in Azure. 
 The client application is actually a Web Application running in any browsers.</p>
 
@@ -96,7 +96,7 @@ Beyond those legacy components, the following Azure Serivces will be deployed:
 3. Azure Search Services Account </p>
 4. Azure Web App </p>
 5. Microsoft Bot Framework (Node.js) </p>
-6. Azure Virtual Machines running the Ubuntu and Apache/PHP/Symfony. </p>
+6. Azure Virtual Machines running the Ubuntu and Apache/PHP/Symfony/MySQL. </p>
 
 Below the architecture of Manadarine services using Azure:
 
@@ -946,6 +946,10 @@ The third parameter the App ID is used to embed the link to the Skype page to ad
 	<img src="https://dev.botframework.com/Client/Images/Add-To-Skype-Buttons.png"/>
 	</a>
 ```
+
+### Learnings from the Mandarine's team  
+
+Florent Petit Mandarine's CTO: *With Azure Media Services and Cognitive Services Text Translator API, we decreased dramatically the time to publish our online training courses for our customers!*  
 
 
 ## Conclusion ##
