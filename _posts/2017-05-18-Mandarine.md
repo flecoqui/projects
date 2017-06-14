@@ -19,6 +19,7 @@ Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering Ma
 As their number of customers is growing fast, Mandarine Academy is looking for a solution to :</p>
 - automate the generation of multi-languages subtitles</p>
 - reduce the time to publish the training courses videos</p>
+
 Moreover, they want to personalize the journey for each user amongst the catalog of Online Training Courses </p>
 
 The solution relies on :</p>
