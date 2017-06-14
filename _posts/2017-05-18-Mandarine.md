@@ -15,9 +15,11 @@ geolocation: France
 permalink: https://microsoft.github.io/techcasestudies/mandarine.html
 ---
 
-Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering online training courses to update the current Mandarine's backend to allow new features for the frontend. The new backend does support:</p>
-- an automated multi-languages subtitles generation for training videos</p>
-- a personalized journey for each user amongst the catalog of MOOCs</p>
+Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering Massive Open Online Courses (MOOC).
+As their number of customers is growing fast, Mandarine Academy is looking for a solution to :</p>
+- automate the generation of multi-languages subtitles</p>
+- reduce the time to publish the training courses videos</p>.
+Moreover, they want to personalize the journey for each user amongst the catalog of Online Training Courses </p>
 
 The solution relies on :</p>
 - [Azure Media Services Indexer](https://docs.microsoft.com/en-us/azure/media-services/media-services-process-content-with-indexer2) : Used to generate the subtitles in the Speech language of the videos </p>
@@ -103,6 +105,8 @@ Below the architecture of Manadarine services using Azure:
  ![Team](/images/2017-05-18-Mandarine/0-architecture.png)
 
 
+## Technical delivery ##
+
 ### Subtitles generation 
 
 #### Installing the backend services in Azure:
@@ -110,18 +114,18 @@ Below the architecture of Manadarine services using Azure:
 In order to generate the subtitles you need to install the Azure backend with all the services associated.
 You can either use the Azure Portal to deploy manually all the Azure Services:
 
-https://portal.azure.com
+[Azure Portal](https://portal.azure.com)
  
 or you can use directly the Azure Resource Manager template available there:
 
-https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive
+[Azure Template used to deploy the backend](https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive)
 
 This template allows you to deploy  a Web App, an Azure Media Services Account, an Azure Search Account and an Azure Text Translator service in the same region as the resource group.
 As Azure Media Services, Search Service and Cognitive Services are not deployed in all regions, it is recommended to use the following regions:
 West US, West Europe,Southeast Asia,West Central US 
 This template is associated with Windows Application which is used to generate automatically video subtitles in different languages fron an orginal video or audio file. Once generated the subtitles are stored in Azure Search to allow the users to find all the videos associated with a specific key word.
 This Application called TestAzureMediaIndexer is available there:
-https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer 
+[Source code of TestAzureMediaIndexer on github](https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer) 
 
 
 ![](/images/2017-05-18-Mandarine/1-architecture.png)
@@ -131,110 +135,8 @@ Using the two Azure CLI command lines below, you can deploy automatically all th
     azure group create testamsseacog northeurope
 	azure group deployment create testamsseacog depiperftest -f azuredeploy.json -e azuredeploy.parameters.json -vv
 
-Using the following parameters:
-
-Name prefix which will be used to create Azure Media Services Account, Azure Storage Account,  Azure Search Account, Azure Cognitive Services Text Translation Account:
-
-    "namePrefix": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 50,
-      "metadata": {
-        "description": "Service name prefix must only contain lowercase letters, digits or dashes, cannot use dash as the first two or last one characters, cannot contain consecutive dashes, and is limited between 2 and 50 characters in length."
-      }
-
-Azure Storage SKU associated with Azure Media Services, used to store video and audio files:
-
-    "mediaStorageSku": {
-      "type": "string",
-      "defaultValue": "Standard_LRS",
-      "allowedValues": [
-        "Standard_LRS",
-        "Standard_GRS",
-        "Standard_RAGRS",
-        "Premium_LRS"
-      ],
-      "metadata": {
-        "description": "This is  Storage Account SKU associated with Azure Media Services"
-      }
-    },
-
-Azure Search SKU:
-
-    "searchSku": {
-      "type": "string",
-      "defaultValue": "free",
-      "allowedValues": [
-        "free",
-        "basic",
-        "standard",
-        "standard2",
-        "standard3"
-      ],
-      "metadata": {
-        "description": "The SKU of the search service you want to create. E.g. free or standard"
-      }
-    },
-
-Azure Cognitive Services SKU:
-
-    "cognitiveSku": {
-      "type": "string",
-      "defaultValue": "S1",
-      "allowedValues": [
-        "F0",
-        "P0",
-        "P1",
-        "P2",
-        "S0",
-        "S1",
-        "S2",
-        "S3",
-        "S4",
-        "S5",
-        "S6"
-      ],
-      "metadata": {
-        "description": "The SKU of the search service you want to create. E.g. free or standard"
-      }
-    },
-
-Azure Web App SKU:
-
-    "webSku": {
-      "type": "string",
-      "defaultValue": "F1",
-      "allowedValues": [
-        "F1",
-        "D1",
-        "B1",
-        "B2",
-        "B3",
-        "S1",
-        "S2",
-        "S3",
-        "P1",
-        "P2",
-        "P3",
-        "P4"
-      ],
-      "metadata": {
-        "description": "The SKU of the Web service you want to create. E.g. free or standard"
-      }
-    }
-
 
 Once the backend services are installed, the storage account where the video files and subtitles files will be stored needs to be manually configured to support CORS (Cross-Origin Resource Sharing) using the Azure portal:
-
-1. Select the Storage Account of your new resource group:</p>
-![](/images/2017-05-18-Mandarine/cors-0.png)
-2. Select CORS on the page of your Storage Account</p>
-![](/images/2017-05-18-Mandarine/cors-1.png)
-3. Click on the button Add to Add a CORS rule. Enter  * for **Allowed origins**, GET,POST and PUT for **Allowed verbs**, * for **Allowed headers**, * for **Exposed headers** and 5 for **Maximum age**.
-Click on the Add button to Create the new rule.</p>
-![](/images/2017-05-18-Mandarine/cors-2.png)
-4. Click on the Add button to Create the new rule. Once the rule is created the Web Player will be able to play audio/video files and subtitles files stored on the Storage Account.</p>
-![](/images/2017-05-18-Mandarine/cors-3.png)
 
 Moreover, the media files will be streamed from SAS locators which returns "Accept-Ranges: bytes" in the http headers. This http header is mandatory to play MP4 video files or MP3 audio files over http with Chrome browser.
 
@@ -242,17 +144,7 @@ Moreover, the media files will be streamed from SAS locators which returns "Acce
 
 This template is associated with Windows Application which is used to generate automatically video subtitles in different languages fron an original video or audio file. Once generated the subtitles are stored in Azure Search to allow the users to find all the videos associated with a specific key word.
 This Application called TestAzureMediaIndexer is available there:
-https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer 
-
-**Prerequisite: Visual Studio 2015 or 2017**
-
-1. If you download the samples ZIP, be sure to unzip the entire archive, not just the folder with the sample you want to build. 
-3. Start Microsoft Visual Studio 2015 or 2017 and select **File** \> **Open** \> **Project/Solution**.
-3. Starting in the folder where you unzipped the samples, go to the Samples subfolder, then the subfolder for this specific sample. Double-click the Visual Studio 2015/2017 Solution (.sln) file.
-4. Press Ctrl+Shift+B, or select **Build** \> **Build Solution**.
-
-**Deploying and running the sample**
-1.  To debug the sample and then run it, press F5 or select **Debug** \> **Start Debugging**. To run the sample without debugging, press Ctrl+F5 or select **Debug** \> **Start Without Debugging**.
+[Source code of TestAzureMediaIndexer on github](https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer) 
 
 **Downloading the binary**
 The binary associated with the application is available there:
@@ -358,8 +250,8 @@ The Windows Application launches the Web Player Application
 ![](/images/2017-05-18-Mandarine/ui-4-4.png)
 
 
-#### Translated the generated subtitles with Cognitive Services Text Translator
-Once the first subtitle file associted with your audio or video file are correct, you can generate more subtitle files in different languages.
+#### Translate the generated subtitles with Cognitive Services Text Translator
+Once the first subtitle file associated with your audio or video file are correct, you can generate more subtitle files in different languages.
  
 ![](/images/2017-05-18-Mandarine/1-architecture-step-5.png)
 
@@ -421,11 +313,11 @@ The Mandarine Web Site will be extended to:
 In order to activate the Mandarine Bot Service, you need first to register your bot on Bot Framework Web Site https://dev.botframework.com/ and then install the Azure Bot backend with all the services associated.
 You can either use the Azure Portal to deploy manually all the Azure Services:
 
-https://portal.azure.com
+[Azure Portal](https://portal.azure.com)
  
 or you can use directly the Azure Resource Manager template available there:
 
-https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-samplebot-webchat
+[Azure template used to deployed the Bot framework backend](https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-samplebot-webchat)
 
 This template allows you to deploy  Deploy a Web App hosting a sample Bot with Web Chat and Skype channels and a Virtual Machine running Linux (debian, ubuntu, centos, redhat) and an Apache/PHP server with Web Chat control and a link to Skype. All those resources will be deployed in the same region as the resource group.
 
@@ -445,7 +337,6 @@ This template allows you to deploy a simple VM running: </p>
 
 
 
-## Technical delivery ##
 
 ### SDKs ###
 
@@ -721,20 +612,32 @@ Florent Petit Mandarine's CTO: *With Azure Media Services and Cognitive Services
 
 ## Conclusion ##
 
-The main insights of this project are:
+As the main objective of this project was to automate the generation of training courses video assets with subtitles in order to:
+- increase the reach of Mandarine's services (up-to 8 subtitle languages per video)
+- improve the time to publish the videos 
 
-- Azure was flexible enough to interoperate with legacy services (existing on premises database, third party video streamer)
-- Thanks to the usage of ARM template, the Mandarine IT team can redeploy the Backend Services in few minutes.
-- As the Azure Media Player doesn't support playback of audio files (MP3, WMA), the solution supports not only subtitles with Video files (MP4, WMV) but also with Audio files (MP3, WMA) using the Web Player here: https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer  
-- Thanks to Azure Media Services Indexer V2 and Cognitive Services Text Translator the generation of subtitles has been almost automated, which has decreased dramatically the time to publish the videos.
-- Regarding Mike the Mandarine's Bot, it's too early to get any insights as the service will be online by the end of June.
+Beyond those legacy components, the architecture of this deployment is based on the following Azure's compoents:
+1. Azure Azure Media Services </p>
+2. Azure Cognitive Services Text Translator key</p>
+3. Azure Search Services Account </p>
+4. Azure Web App </p>
+5. Microsoft Bot Framework (Node.js) </p>
+6. Azure Virtual Machines running the Ubuntu and Apache/PHP/Symfony/MySQL. </p>
 
 
-### Next Steps
+- Measurable impact/benefits resulting from the implementation of the solution:
+With Azure Media Services Indexer V2 and Cognitive Services Text Translator the generation of subtitles has been almost automated, which has decreased dramatically the time to publish the videos.
+Thanks to the usage of ARM template, the Mandarine IT team can redeploy the Backend Services in few minutes.
 
+- General lessons:
+Azure was flexible enough to interoperate with legacy services (existing on premises database, third party video streamer)
+As the Azure Media Player doesn't support playback of audio files (MP3, WMA), the solution supports not only subtitles with Video files (MP4, WMV) but also with Audio files (MP3, WMA) using the Web Player here: https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer  
+Regarding Mike the Mandarine's Bot, it's too early to get any insights as the service will be online by the end of June.
+
+
+- Opportunities going forward:
 This project was the first step of the enhancement of Mandarine services. 
 Below a list of services which could improve Mandarine's services:
-
 1. The Mandarine's Web Site could be extended to propose to each user the most appropriate MOOC based on his journey on the Web Site. A recommendation service based on Azure Machine Learning could improve the user experience.</p>
 2. During Live events, Mandarine would like to enhance their Live MOOC videos with live subtitles as well. The support of this feature will require the developpment of a specific component based on Azure Media Services.</p>
 3. Following the Build 2107 announcement and the support of Skype for Business connector with Microsoft Bot Framework, Mandarine's services could address all the users using Skype For Business.
