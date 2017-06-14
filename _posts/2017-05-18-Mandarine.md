@@ -214,7 +214,7 @@ Once the subtitle file is available, it's possible to update the subtitle file. 
 ![](/images/2017-05-18-Mandarine/1-architecture-step-4.png)
 
 1. Click on the button **Play Video/Subtitle** or **Play Audio/Subtitle** </p> 
-The Windows Application launches the Web Player Application 
+The Windows Application launches the Web Player Application </p>
 ![](/images/2017-05-18-Mandarine/ui-4.png)
 
 2. Your default browser on your computer running Windows is displaying a page playing the video or audio file along with the subtitles.</p>
@@ -597,11 +597,11 @@ Florent Petit Mandarine's CTO: *With Azure Media Services and Cognitive Services
 
 ## Conclusion ##
 
-As the main objective of this project was to automate the generation of training courses video assets with subtitles in order to:
+The main objective of this project was to automate the generation of subtitles associated with training courses videos in order to:
 - increase the reach of Mandarine's services (up-to 8 subtitle languages per video)
 - improve the time to publish the videos 
 
-Beyond those legacy components, the architecture of this deployment is based on the following Azure's compoents:
+Beyond those legacy components, the architecture of this deployment is based on the following Azure's components:
 1. Azure Azure Media Services </p>
 2. Azure Cognitive Services Text Translator key</p>
 3. Azure Search Services Account </p>
@@ -610,17 +610,17 @@ Beyond those legacy components, the architecture of this deployment is based on 
 6. Azure Virtual Machines running the Ubuntu and Apache/PHP/Symfony/MySQL. </p>
 
 
-- Measurable impact/benefits resulting from the implementation of the solution:
+**Measurable impact/benefits resulting from the implementation of the solution:**</p>
 With Azure Media Services Indexer V2 and Cognitive Services Text Translator the generation of subtitles has been almost automated, which has decreased dramatically the time to publish the videos.
 Thanks to the usage of ARM template, the Mandarine IT team can redeploy the Backend Services in few minutes.
 
-- General lessons:
+**General lessons:**</p>
 Azure was flexible enough to interoperate with legacy services (existing on premises database, third party video streamer)
-As the Azure Media Player doesn't support playback of audio files (MP3, WMA), the solution supports not only subtitles with Video files (MP4, WMV) but also with Audio files (MP3, WMA) using the Web Player here: https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer  
+As the Azure Media Player doesn't support playback of audio files (MP3, WMA), the solution supports not only subtitles with Video files (MP4, WMV) but also with Audio files (MP3, WMA) using the [Web Player](https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer)  
 Regarding Mike the Mandarine's Bot, it's too early to get any insights as the service will be online by the end of June.
 
 
-- Opportunities going forward:
+**Opportunities going forward**</p>
 This project was the first step of the enhancement of Mandarine services. 
 Below a list of services which could improve Mandarine's services:
 1. The Mandarine's Web Site could be extended to propose to each user the most appropriate MOOC based on his journey on the Web Site. A recommendation service based on Azure Machine Learning could improve the user experience.</p>
