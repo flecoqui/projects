@@ -18,7 +18,7 @@ permalink: https://microsoft.github.io/techcasestudies/mandarine.html
 Microsoft teamed up with Mandarine Academy, a Microsoft's partner, delivering Massive Open Online Courses (MOOC).
 As their number of customers is growing fast, Mandarine Academy is looking for a solution to :</p>
 - automate the generation of multi-languages subtitles</p>
-- reduce the time to publish the training courses videos</p>.
+- reduce the time to publish the training courses videos</p>
 Moreover, they want to personalize the journey for each user amongst the catalog of Online Training Courses </p>
 
 The solution relies on :</p>
@@ -112,13 +112,8 @@ Below the architecture of Manadarine services using Azure:
 #### Installing the backend services in Azure:
 
 In order to generate the subtitles you need to install the Azure backend with all the services associated.
-You can either use the Azure Portal to deploy manually all the Azure Services:
-
-[Azure Portal](https://portal.azure.com)
- 
-or you can use directly the Azure Resource Manager template available there:
-
-[Azure Template used to deploy the backend](https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive)
+You can either use the [Azure Portal](https://portal.azure.com) to deploy manually all the Azure Services.</p>
+or you can use directly this [Azure Resource Manager template](https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive) </p>
 
 This template allows you to deploy  a Web App, an Azure Media Services Account, an Azure Search Account and an Azure Text Translator service in the same region as the resource group.
 As Azure Media Services, Search Service and Cognitive Services are not deployed in all regions, it is recommended to use the following regions:
@@ -178,17 +173,6 @@ You can retrieve all the parameters below from the [Azure Portal:](https://porta
 4. The Azure Search Services Account name</p>
 5. The Azure Search Services Account key</p>
 6. The url of the Web Player application hosted on the Web site </p>
-
-Follow the steps below to read the account names and the keys: </p>
-
-1. On the Azure portal, select the new Resource Group associated with the backend services. Select the service (Media, Search, Cognitive) you want to read the keys.</p>
-![](/images/2017-05-18-Mandarine/mediasearchcognitive.png)
-2. For Azure Media Services, select the **Account Keys** menu to display the Account name and the keys.</p>
-![](/images/2017-05-18-Mandarine/media-key.png)
-3. For Azure Search Services, select the **Keys** menu to display the Account name and the keys.</p>
-![](/images/2017-05-18-Mandarine/search-key.png)
-4. For Cognitive Services, select the **Keys** menu to display the keys.</p>
-![](/images/2017-05-18-Mandarine/cognitive-key.png)
 
 Once all the parameters are ready click on the button "Connect" to establish the connection with your backend:
 ![](/images/2017-05-18-Mandarine/ui-1.png)
