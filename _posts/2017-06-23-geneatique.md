@@ -15,7 +15,11 @@ geolocation: France
 permalink: https://microsoft.github.io/techcasestudies/geneatique.html
 ---
 
-Microsoft teamed up with CDIP, a Microsoft's partner, delivering Genealogy software.
+Microsoft teamed up with CDIP to convert one of their popular genealogy software, Geneatique, to the Universal Windows Platform (UWP), using Desktop Bridge.
+
+Geneatique is a leading genealogy software in France that provides tools for research, charting and organizing your family tree easier. Geneatique.com is a very comprehensive and high-performance tool, renowned as one of the best family tree software program on the market. 
+By bringing its first software to the Windows Store, CDIP saw a great opportunity to increase the number of downloads, reach more than 400 million PC around the world, provide a richer user experience and benefit from a simpler installation and update process management.
+
 As more and more their customers are running their current Desktop Genealogy Software called Geneatique over Windows 10, CDIP decided to distribute this Software through Windows Store</p>
 
  ![Company logo](/images/2017-06-23-geneatique/cdip.png)
@@ -26,25 +30,16 @@ Since Creator Update the packages are stable and the application is able to run 
 
 The solution relies on :</p>
 - [Desktop App Converter](https://www.microsoft.com/fr-fr/store/p/desktop-app-converter/9nblggh4skzw) : Used to automatically convert the Desktop Application into a package compliant with Windows Store</p>
-- [Cognitive Services - Text Translator APIs](https://azure.microsoft.com/en-gb/services/cognitive-services/translator-text-api/) : Used to translated the original subtitles in other languages subtitles</p>
-- [Azure Search](https://azure.microsoft.com/en-us/services/search/) : Used to index subtitles in different languages</p>
-- [Microsoft Bot Framework](https://dev.botframework.com/) : Used to implement CDIP Bot (called Mike) and supporting Web Chat and Skype connectors </p>
+- [Windows 10 SDK (10.0.15063.0)](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive ) : Windows 10 SDK which inludes the tools </p>
+- [Windows 10 Base Image 15063](http://aka.ms/converterimages/) : This Base Image is necessary to generate the package for Creator Update</p>
  
 
-
-
-
- ![Team](/images/2017-06-23-geneatique/picture2.png)
-
-
-Mandarine's backend is currently based on:</p>
-- Ubuntu virtual Machines running in Azure</p>
-- Database: MySQL Server</p>
-- Web Server: Apache, PHP, Symfony, Node JS</p>
+ ![Team](/images/2017-06-23-geneatique/geneatique_1.png)
 
 
 **Core Team:** </p>
 - Aouatif Alilou - Project Manager, CDIP</p>
+- Maud Tournay - Business Evangelist, Microsoft</p>
 - Fred Le Coquil - Technical Evangelist, Microsoft</p>
 
  ![Team](/images/2017-06-23-geneatique/geneatique_1.png)
@@ -57,34 +52,19 @@ Mandarine's backend is currently based on:</p>
 ## Customer profile ##
 
 **CDIP**
+CDIP is an ISV specialized in genealogy, scrapbooking and old mapping. Their main product is Geneatique, a leading genealogy software in France that provides tools for research, charting and organizing your family tree easier. Geneatique.com is a very comprehensive and high-performance tool, renowned as one of the best family tree software program on the market. It offers more than 100 different templates that you can customize.
+The Geneatique software can be purchased online or in DVD.
 
- ![Team](/images/2017-06-23-geneatique/cdip.png)
+ ![Team](/images/2017-06-23-geneatique/geneatique_4.png)
 
- [Mandarine Web Site](http://www.geneatique.com/)
- 
-Created in 2008, CDIP guides companies in their digital transformation. 35 full-time employees are currently working at headquarters in Roubaix, France. From free MOOC services to personalized corporate services, CDIP provides the best tailored services to train all the employees. The solution is based on a combination of the latest technologies, such as video conferencing, web conferencing, e-learning and machine learning. 
-This hackfest is aligned with Mandarine strategic move operated earlier this year (Feb 2017), that led to the creation of a new logo, name, slogan and graphic interface that increased their visibility as a well-established player in the digital change and transformation arena. They also came with a reinforced teaching team, a broader range of solution and an international dimension with the opening of new offices in the United Kingdom, Poland, Canada and the United States. 
-
- ![Team](/images/2017-06-23-geneatique/mandarine.png)
- 
+ [Geneatique Web Site](http://www.geneatique.com/)
+  
 ## Problem statement ##
 
-CDIP has already published several hundred of videos, they would like to add subtitles (SRT, WEBVTT, TTML) for each video.
-Azure Media Indexer V2 seems the best approach and easiest approach to generate the subtitles directly from the original video.
-Once the native subtitles are available in the native language. it becomes possible  to generate subtitles in different languages by using Cognitive Services Text Translator API,.
-Each MOOC Video will support up-to 8 subtitles languages. 
-For the first phase of this project, Mandarine use Adaptive Streaming based on third-party platform and player. The MOOC Videos will be MP4 files delivered to the clients through the standard player.
-Azure Media Services Streaming End Point won't be used during this phase, the application will only use Azure Media Services SAS Locator to deliver the videos.
-As today the generation of subtitles can't be fully automated, after each step, the Mandarine operator needs to check the generated subtitles:
-- subtitles generated with Azure Media Services Indexer V2
-- subtitles generated with Cognitive Services Text Translator API  
-After each step, the Manadarine operator must be able to update manually the subtitles if necessary '
+Geneatique is a classic Win32 Desktop application available from their official Web Site. The application is installed with a specific installation program. The Win32 application is not the best experience for Windows 10 users, but CDIP did not want to rewrite all the code to create a new Universal Windows Platform (UWP) app to leverage Windows Store capabilities. They have been trying to integrate Geneatique.com to the Windows Store since December 2016 and but they were facing deployments issues.
 
-Beyond the enhancement of their video content, Mandarine wants to improve the interactivity of their current Web Site. They want to personalize the journey of each user amongst the catalog of MOOCs. 
-For instance, they want to automatically refine the profile of each user.
-Their Bot (Project Name called Mike) will ask questions to complete the profile of each user.
-The Bot will also send notifications to users for instance when they are about to complete a level of training. 
-The Bot will address the subscribers connected to Mandarine Web Site and to Skype. 
+The packages generated for this version of Windows 10 was instable: the application installed from those packages oftentimes crashed while the user was sing the embedded Web Browser.
+Since Creator Update the packages are stable and the application is able to run the embedded Web Browser without crashing.
 
  
 ## Solution and steps ##
@@ -96,28 +76,56 @@ For instance, the database server is based on MySQL Server and this server is ho
 On the technologies side, the servers are running Ubuntu, the Web Servers are based on Apache/PHP/Symfony. The backend services are developed using Node.js.The Web Servers will be hosted in Azure. 
 The client application is actually a Web Application running in any browsers.</p>
 
-? Préparation du Setup : 
+
+1. Install the latest RS2 (Creator Update) Build 15063 on your PC running Windows 10
+2. Install Windows 10 SDK (10.0.15063.0)https://developer.microsoft.com/en-us/windows/downloads/sdk-archive 
+
+3. Install DesktopAppConverter from Windows Store
+4. Download the base image 15063 from there http://aka.ms/converterimages
+
+5. Install the base Image 15063   Launch DesktopAppConverter.exe and enter the following command in the command shell window:   DesktopAppConverter.exe -Setup -BaseImage C:\projects\VLCCentennial\inputs\BaseImage-15063.wim
+
+6. Download the latest Win32 VLC build (vlc-3.0.0-<YYYYMMDD>-<XXXX>-git-win32.exe) and Win64 VLC build (vlc-3.0.0-<YYYYMMDD>-<XXXX>-git-win64.exe) from respectively   Win32   http://nightlies.videolan.org/build/win32/   Win64   http://nightlies.videolan.org/build/win64/
+
+7. Create Win32 and Win64 Appx    Launch DesktopAppConverter.exe and enter the following command in the command shell window:   Win32DesktopAppConverter.exe -Installer C:\projects\VLCCentennial\inputs\binaries\vlc-3.0.0-20170517-0254-git-win32.exe -InstallerArguments "/S /V/qn" -AppExecutable "C:\Program Files (x86)\VideoLAN\VLC\VLC.exe" -Destination "C:\projects\VLCCentennial\outputs\17052017\VLCWin32" -PackageName VLC -Publisher CN=videolan -Version 0.0.0.1 -MakeAppx   Win64DesktopAppConverter.exe -Installer C:\projects\VLCCentennial\inputs\binaries\vlc-3.0.0-20170517-0454-git-win64.exe -InstallerArguments "/S /V/qn" -AppExecutable "C:\Program Files\VideoLAN\VLC\VLC.exe" -Destination "C:\projects\VLCCentennial\outputs\17052017\VLCWin64" -PackageName VLC -Publisher CN=videolan -Version 0.0.0.1 -MakeAppx
+
+8. Update the package logos under (Add logos):    VLCWin32\VLC\PackageFiles\Assets   VLCWin64\VLC\PackageFiles\Assets
+
+9. Update the Win32 and Win64 Appx with the new logos   In the command Window launch the following commands:   Win32"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\PackageFiles" /p "C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\VLC.appx“   Win64"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\PackageFiles" /p "C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\VLC.appx“
+10. Create the certificate
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\makecert.exe" -r -h 0 -n "CN=videolan" -eku 1.3.6.1.5.5.7.3.3 -pe -sv C:\projects\VLCCentennial\outputs\17052017\TempCert.pvk C:\projects\VLCCentennial\outputs\17052017\TempCert.cer
+
+11. Create the pfx file
+"C:\Program Files (x86)\Windows Kits\10\bin\x64\pvk2pfx.exe" -pvk  C:\projects\VLCCentennial\outputs\17052017\TempCert.pvk -spc C:\projects\VLCCentennial\outputs\17052017\TempCert.cer -pfx C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx
+
+12. Import the certificat in « local machine » « trusted people » 
+
+13. Sign the Win32 and Win64 Appx    In the command Window launch the following commands:    Win32"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx -fd SHA256 -v C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\VLC.appx    Win64 "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx -fd SHA256 -v C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\VLC.appx 
+
+14. Install the Win32 and Win64 Appx    In the Powershell command Window launch the following commands:    Win32    Add-AppxPackage -Path C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\VLC.appx     Win64    Add-AppxPackage -Path C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\VLC.appx 
+
+Préparation du Setup : 
  
 1. le setup d’installation de l’application doit être généré en un seul fichier ( et non plusieur binaire) 2. Tous les modules exécutés depuis votre setup d'installation (Section [run] de l’iss si vous utilisez ‘Inno Setup’) doivent être lancer en mode SILENT et NORESTART, sinon la génération de l’appx reste bloquée. 
  
-? Configuration système requise : 
+Configuration système requise : 
  
 Pour générer un Appx vous aurez besoin d'un version de Windows 10 (Entreprise ou pro). Assurez-vous que vous utilisez la mise à jour anniversaire de Windows 10 (14393.0 ou versions ultérieures). 
  
-? Préparation de l'environnement : 
+Préparation de l'environnement : 
  
 1. Installer DesktopConverter disponible ici : https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw .  2. Installer Windows container en suivant les instructions : https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-st art-windows-10 3. Télécharger une image de base compatible avec votre version de windows installé  4. Exécuter "Desktop Bridge Converter" en tant qu'admin 5. Commencer par l'installation de l'environnement en utilisant l'image de base téléchargé     DesktopAppConverter.exe -Setup -BaseImage "C:\Téléchargement\BaseImage-<version>.win"  
- ?    ? Génération de l'appx : 
+Génération de l'appx : 
  1. Générer votre APPX avec la commande :  DesktopAppConverter.exe -Installer "C:\Votresetup.exe" -InstallerArgument "/SILENT /NORESTART" -Destination "c:\VotreSortie" -PackageName "Geneatique2017" -PackageDisplayName "Généatique 2017" -AppDisplayName "Généatique 2017" -AppDescription  "Logiciel de Généalogie : Généatique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
  
-> Une fois la génération de l'appx terminée. Dans le dossier de sortie vous aurez - Un dossier  "log" , - Un dossier "PackageFiles" , - Geneatique.appx > Le dossier "PackageFiles" contient l'ensemble des fichiers nécessaire à la génération de l'appx. Tous les autres appx seront généré uniquement à partire de ce dossier. 
+Une fois la génération de l'appx terminée. Dans le dossier de sortie vous aurez - Un dossier  "log" , - Un dossier "PackageFiles" , - Geneatique.appx > Le dossier "PackageFiles" contient l'ensemble des fichiers nécessaire à la génération de l'appx. Tous les autres appx seront généré uniquement à partire de ce dossier. 
 
  
-? Mise à jour de l'appx : 
+Mise à jour de l'appx : 
  
  - Placer dans le dossier "PackageFiles" tous les fichiers modifiés puis régénérer l'appx avec la commande "MakeAppx"   makeappx pack -d "c:\VotreSortie\PackageFiles" -p "C:\VotreSortie\Geneatique.appx" 
  
-? Signature de l'appx: 
+Signature de l'appx: 
  
   - Lancer Windows PowerShell et exécutez la commande :     signtool.exe sign -f "mycertif.pfx" -p password -fd SHA256 -v "appName.Appx"
 
