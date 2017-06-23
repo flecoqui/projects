@@ -1,4 +1,4 @@
-Ôªø---
+---
 layout: post
 title:  "Bringing Geneatique Desktop Application to Windows Store"
 author: "Fred Le Coquil"
@@ -30,6 +30,9 @@ The solution relies on :</p>
 - [Azure Search](https://azure.microsoft.com/en-us/services/search/) : Used to index subtitles in different languages</p>
 - [Microsoft Bot Framework](https://dev.botframework.com/) : Used to implement CDIP Bot (called Mike) and supporting Web Chat and Skype connectors </p>
  
+
+
+
 
  ![Team](/images/2017-06-23-geneatique/picture2.png)
 
@@ -93,30 +96,30 @@ For instance, the database server is based on MySQL Server and this server is ho
 On the technologies side, the servers are running Ubuntu, the Web Servers are based on Apache/PHP/Symfony. The backend services are developed using Node.js.The Web Servers will be hosted in Azure. 
 The client application is actually a Web Application running in any browsers.</p>
 
-‚óè Pr√©paration du Setup : 
+? PrÈparation du Setup : 
  
-1. le setup d‚Äôinstallation de l‚Äôapplication doit √™tre g√©n√©r√© en un seul fichier ( et non plusieur binaire) 2. Tous les modules ex√©cut√©s depuis votre setup d'installation (Section [run] de l‚Äôiss si vous utilisez ‚ÄòInno Setup‚Äô) doivent √™tre lancer en mode SILENT et NORESTART, sinon la g√©n√©ration de l‚Äôappx reste bloqu√©e. 
+1. le setup díinstallation de líapplication doit Ítre gÈnÈrÈ en un seul fichier ( et non plusieur binaire) 2. Tous les modules exÈcutÈs depuis votre setup d'installation (Section [run] de líiss si vous utilisez ëInno Setupí) doivent Ítre lancer en mode SILENT et NORESTART, sinon la gÈnÈration de líappx reste bloquÈe. 
  
-‚óè Configuration syst√®me requise : 
+? Configuration systËme requise : 
  
-Pour g√©n√©rer un Appx vous aurez besoin d'un version de Windows 10 (Entreprise ou pro). Assurez-vous que vous utilisez la mise √† jour anniversaire de Windows 10 (14393.0 ou versions ult√©rieures). 
+Pour gÈnÈrer un Appx vous aurez besoin d'un version de Windows 10 (Entreprise ou pro). Assurez-vous que vous utilisez la mise ‡ jour anniversaire de Windows 10 (14393.0 ou versions ultÈrieures). 
  
-‚óè Pr√©paration de l'environnement : 
+? PrÈparation de l'environnement : 
  
-1. Installer DesktopConverter disponible ici : https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw .  2. Installer Windows container en suivant les instructions : https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-st art-windows-10 3. T√©l√©charger une image de base compatible avec votre version de windows install√©  4. Ex√©cuter "Desktop Bridge Converter" en tant qu'admin 5. Commencer par l'installation de l'environnement en utilisant l'image de base t√©l√©charg√©     DesktopAppConverter.exe -Setup -BaseImage "C:\T√©l√©chargement\BaseImage-<version>.win"  
- ‚óè    ‚Äã G√©n√©ration de l'appx : 
- 1. G√©n√©rer votre APPX avec la commande :  DesktopAppConverter.exe -Installer "C:\Votresetup.exe" -InstallerArgument "/SILENT /NORESTART" -Destination "c:\VotreSortie" -PackageName "Geneatique2017" -PackageDisplayName "G√©n√©atique 2017" -AppDisplayName "G√©n√©atique 2017" -AppDescription  "Logiciel de G√©n√©alogie : G√©n√©atique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
+1. Installer DesktopConverter disponible ici : https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw .  2. Installer Windows container en suivant les instructions : https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-st art-windows-10 3. TÈlÈcharger une image de base compatible avec votre version de windows installÈ  4. ExÈcuter "Desktop Bridge Converter" en tant qu'admin 5. Commencer par l'installation de l'environnement en utilisant l'image de base tÈlÈchargÈ     DesktopAppConverter.exe -Setup -BaseImage "C:\TÈlÈchargement\BaseImage-<version>.win"  
+ ?    ? GÈnÈration de l'appx : 
+ 1. GÈnÈrer votre APPX avec la commande :  DesktopAppConverter.exe -Installer "C:\Votresetup.exe" -InstallerArgument "/SILENT /NORESTART" -Destination "c:\VotreSortie" -PackageName "Geneatique2017" -PackageDisplayName "GÈnÈatique 2017" -AppDisplayName "GÈnÈatique 2017" -AppDescription  "Logiciel de GÈnÈalogie : GÈnÈatique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
  
-> Une fois la g√©n√©ration de l'appx termin√©e. Dans le dossier de sortie vous aurez - Un dossier  "log" , - Un dossier "PackageFiles" , - Geneatique.appx > Le dossier "PackageFiles" contient l'ensemble des fichiers n√©cessaire √† la g√©n√©ration de l'appx. Tous les autres appx seront g√©n√©r√© uniquement √† partire de ce dossier. 
+> Une fois la gÈnÈration de l'appx terminÈe. Dans le dossier de sortie vous aurez - Un dossier  "log" , - Un dossier "PackageFiles" , - Geneatique.appx > Le dossier "PackageFiles" contient l'ensemble des fichiers nÈcessaire ‡ la gÈnÈration de l'appx. Tous les autres appx seront gÈnÈrÈ uniquement ‡ partire de ce dossier. 
 
  
-‚óè Mise √† jour de l'appx : 
+? Mise ‡ jour de l'appx : 
  
- - Placer dans le dossier "PackageFiles" tous les fichiers modifi√©s puis r√©g√©n√©rer l'appx avec la commande "MakeAppx"   makeappx pack -d "c:\VotreSortie\PackageFiles" -p "C:\VotreSortie\Geneatique.appx" 
+ - Placer dans le dossier "PackageFiles" tous les fichiers modifiÈs puis rÈgÈnÈrer l'appx avec la commande "MakeAppx"   makeappx pack -d "c:\VotreSortie\PackageFiles" -p "C:\VotreSortie\Geneatique.appx" 
  
-‚óè Signature de l'appx: 
+? Signature de l'appx: 
  
-  - Lancer Windows PowerShell et ex√©cutez la commande :     signtool.exe sign -f "mycertif.pfx" -p password -fd SHA256 -v "appName.Appx"
+  - Lancer Windows PowerShell et exÈcutez la commande :     signtool.exe sign -f "mycertif.pfx" -p password -fd SHA256 -v "appName.Appx"
 
 
 
