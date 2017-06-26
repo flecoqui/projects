@@ -20,20 +20,16 @@ Microsoft teamed up with CDIP to convert one of their popular genealogy software
 Geneatique is a leading genealogy software in France that provides tools for research, charting and organizing your family tree easier. Geneatique.com is a very comprehensive and high-performance tool, renowned as one of the best family tree software program on the market. 
 By bringing its first software to the Windows Store, CDIP saw a great opportunity to increase the number of downloads, reach more than 400 million PC around the world, provide a richer user experience and benefit from a simpler installation and update process management.
 
-As more and more their customers are running their current Desktop Genealogy Software called Geneatique over Windows 10, CDIP decided to distribute this Software through Windows Store</p>
+As more and more of their customers are running the current Desktop Genealogy Software on Windows 10, CDIP decided to distribute this Software through the Windows Store</p>
 
  ![Company logo](/images/2017-06-23-geneatique/cdip.png) 
  ![Team](/images/2017-06-23-geneatique/geneatique_2.png) ![Team](/images/2017-06-23-geneatique/geneatique_3.png)
-
-The easiest approach was to use the Desktop Bridge App Converter to automatically convert their Desktop Application into packages distributed with Windows Store.
-This effort did start last year using Windows 10 Anniversary Update, unfortunatelly the packages generated for this version of Windows 10 was instable: the application installed from those packages oftentimes crashed while the user was sing the embedded Web Browser.
-Since Creator Update the packages are stable and the application is able to run the embedded Web Browser without crashing.</p>
-
  ![Team](/images/2017-06-23-geneatique/geneatique_ux_5.png)
+
 
 The solution relies on :</p>
 - [Desktop App Converter](https://www.microsoft.com/fr-fr/store/p/desktop-app-converter/9nblggh4skzw) : Used to automatically convert the Desktop Application into a package compliant with Windows Store</p>
-- [Windows 10 SDK (10.0.15063.0)](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive ) : Windows 10 SDK which inludes the tools </p>
+- [Windows 10 SDK (10.0.15063.0)](https://developer.microsoft.com/en-us/windows/downloads/sdk-archive ) : Windows 10 SDK which includes the tools </p>
 - [Windows 10 Base Image 15063](http://aka.ms/converterimages/) : This Base Image is necessary to generate the package for Creator Update</p>
  
 
@@ -49,8 +45,7 @@ The solution relies on :</p>
 
 ## Customer profile ##
 
-**CDIP**
-CDIP is an ISV specialized in genealogy, scrapbooking and old mapping. Their main product is Geneatique, a leading genealogy software in France that provides tools for research, charting and organizing your family tree easier. Geneatique.com is a very comprehensive and high-performance tool, renowned as one of the best family tree software program on the market. It offers more than 100 different templates that you can customize.
+**CDIP** is an ISV specialized in genealogy, scrapbooking and old mapping. Their main product is Geneatique, a leading genealogy software in France that provides tools for research, charting and organizing your family tree easier. Geneatique.com is a very comprehensive and high-performance tool, renowned as one of the best family tree software program on the market. It offers more than 100 different templates that you can customize.
 The Geneatique software can be purchased online or in DVD.
 
  ![Team](/images/2017-06-23-geneatique/geneatique_4.png)
@@ -61,9 +56,10 @@ The Geneatique software can be purchased online or in DVD.
 
 Geneatique is a classic Win32 Desktop application available from their official Web Site. The application is installed with a specific installation program. The Win32 application is not the best experience for Windows 10 users, but CDIP did not want to rewrite all the code to create a new Universal Windows Platform (UWP) app to leverage Windows Store capabilities. They have been trying to integrate Geneatique.com to the Windows Store since December 2016 and but they were facing deployments issues.
 
-The packages generated for this version of Windows 10 was instable: the application installed from those packages oftentimes crashed while the user was sing the embedded Web Browser.
-Since Creator Update the packages are stable and the application is able to run the embedded Web Browser without crashing.
 
+The easiest approach was to use the Desktop Bridge App Converter to automatically convert their Desktop Application into packages distributed with the Windows Store.
+This effort did start last year using Windows 10 Anniversary Update, unfortunatelly the packages generated for this version of Windows 10 were instable: the application installed from those packages oftentimes crashed while the user was using the embedded Web Browser.
+Since Creator Update the packages are stable and the application is able to run the embedded Web Browser without crashing.</p>
  
 ## Solution and steps ##
 
@@ -112,7 +108,7 @@ You can now generate the package for Geneatique application. As the application 
 
 3. After few minutes the new package is available under "C:\projects\geneatique\outputs\Geneatique2017.appx" . The appx file is built using the files under "C:\projects\geneatique\outputs\PackageFiles". For troubleshooting, you can use the log files under "C:\projects\geneatique\outputs\Logs".
 
-4. You can update the package file for instance to use updated logos. In the command Window launch the following commands:</p>
+4. You can update the package file for instance to use updated logos. In the command Window, launch the following commands:</p>
 
 
        "C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\geneatique\outputs\PackageFiles" /p "C:\projects\geneatique\outputs\Geneatique2017.appx"
@@ -181,30 +177,25 @@ If you don't have a company certificate you can create your own test certificate
 
 ## Conclusion ##
 
-The main objective of this project was to enable CDIP to distribute his application through Windows Store in order to address the 500 Millions devices running Windows 10.
-After a first unsuccessful attempt using Anniversary Update: the package generated with Desktop App Converter was unstable when the application used the embedded browser. The second attempt using Creator Update was successful.
-The application generated and installed through Widnows Store is  now stable.
-
-
-publisautomate the generation of subtitles associated with training courses videos in order to:
-- increase the reach of Mandarine's services (up-to 8 subtitle languages per video)
-- improve the time to publish the videos 
+The main objective of this project was to enable CDIP to distribute his application through the Windows Store in order to address the 500 Million devices running Windows 10.
+After a first unsuccessful attempt using Anniversary Update - the package generated with Desktop App Converter was unstable when the application used the embedded browser - we finally managed the migration while using the Creator Update.
+The application generated and installed through the Windows Store is  now completely stable.
 
 
 **Measurable impact/benefits resulting from the implementation of the solution:**</p>
-With the current version of Windows 10 Creator Update, the generation of the Geneatique package is automated. This package can be generated along side with the binaries for the Win32 Desktop application.
+With the current version of Windows 10 Creator Update, the generation of the Geneatique package is automated. This package can be generated alongside the binaries for the Win32 Desktop application.
 
 **General lessons:**</p>
-Though Geneatique 2017 is a very complex application with several third parties dependencies (300 MBytes), using Desktop App Converter it 's possible to generate an installation package compliant with Windows Store.
-Moreover, as the application is now available through Windows Store, on the bussiness side, it's an opportunity to introduce new business model using In App Purchase.
+Though Geneatique 2017 is a very complex application with several third parties dependencies (300 MBytes), it is possible to generate an installation package compliant with the Windows Store using the Desktop App Converter.
+Moreover, as the application is now available through the Windows Store, CDIP can now seize the opportunity to introduce a new business model using In App Purchase.
 
 
 **Opportunities going forward**</p>
 This project was the first step for the distribution of Geneatique Application through Windows Store.
 Below a list of extensions which could improve Geneatique application running on Windows 10:
-1. Calling the UWP API from the Win32 Application to support Tiles, Notification, Cortana, ...
+1. Calling the UWP API from the Win32 Application to support Tiles, Notification, Cortana...
 2. Use Windows Store In App Purchase API to change the business model associated with the application.
-3. Prepare a full UWP implementation,
+3. Prepare a full UWP implementation
 
 ## Additional resources ##
 Below a list of links to resources used by the team:
