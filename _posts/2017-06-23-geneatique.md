@@ -29,7 +29,7 @@ The easiest approach was to use the Desktop Bridge App Converter to automaticall
 This effort did start last year using Windows 10 Anniversary Update, unfortunatelly the packages generated for this version of Windows 10 was instable: the application installed from those packages oftentimes crashed while the user was sing the embedded Web Browser.
 Since Creator Update the packages are stable and the application is able to run the embedded Web Browser without crashing.</p>
 
- ![Team](/images/2017-06-23-geneatique/geneatique_5.png)
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_5.png)
 
 The solution relies on :</p>
 - [Desktop App Converter](https://www.microsoft.com/fr-fr/store/p/desktop-app-converter/9nblggh4skzw) : Used to automatically convert the Desktop Application into a package compliant with Windows Store</p>
@@ -45,11 +45,6 @@ The solution relies on :</p>
 - Maud Tournay - Business Evangelist, Microsoft</p>
 - Fred Le Coquil - Technical Evangelist, Microsoft</p>
 
- ![Team](/images/2017-06-23-geneatique/geneatique_1.png)
-
- ![Team](/images/2017-06-23-geneatique/geneatique_2.png)
- 
- ![Team](/images/2017-06-23-geneatique/geneatique_3.png)
 
 
 ## Customer profile ##
@@ -124,6 +119,14 @@ You can now generate the package for Geneatique application. As the application 
 
 
        Add-AppxPackage -Path C:\projects\geneatique\outputs\Geneatique2017.appx
+
+You can also install the package file in double-clicking on the file Geneatique2017.appx in the file explorer.
+
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_1.png)
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_2.png)
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_3.png)
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_4.png)
+
 
 
 If you don't have a company certificate you can create your own test certificate using the command lines below:
