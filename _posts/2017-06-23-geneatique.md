@@ -182,19 +182,21 @@ If you don't have a company certificate you can create your own test certificate
 ## Conclusion ##
 
 The main objective of this project was to enable CDIP to distribute his application through Windows Store in order to address the 500 Millions devices running Windows 10.
+After a first unsuccessful attempt using Anniversary Update: the package generated with Desktop App Converter was unstable when the application used the embedded browser. The second attempt using Creator Update was successful.
+The application generated and installed through Widnows Store is  now stable.
+
+
 publisautomate the generation of subtitles associated with training courses videos in order to:
 - increase the reach of Mandarine's services (up-to 8 subtitle languages per video)
 - improve the time to publish the videos 
 
 
 **Measurable impact/benefits resulting from the implementation of the solution:**</p>
-With Azure Media Services Indexer V2 and Cognitive Services Text Translator the generation of subtitles has been almost automated, which has decreased dramatically the time to publish the videos.
-Thanks to the usage of ARM template, the Mandarine IT team can redeploy the Backend Services in few minutes.
+With the current version of Windows 10 Creator Update, the generation of the Geneatique package is automated. This package can be generated along side with the binaries for the Win32 Desktop application.
 
 **General lessons:**</p>
-Azure was flexible enough to interoperate with legacy services (existing on premises database, third party video streamer)
-As the Azure Media Player doesn't support playback of audio files (MP3, WMA), the solution supports not only subtitles with Video files (MP4, WMV) but also with Audio files (MP3, WMA) using the [Web Player](https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer)  
-Regarding Mike the Mandarine's Bot, it's too early to get any insights as the service will be online by the end of June.
+Though Geneatique 2017 is a very complex application with several third parties dependencies (300 MBytes), using Desktop App Converter it 's possible to generate an installation package compliant with Windows Store.
+Moreover, as the application is now available through Windows Store, on the bussiness side, it's an opportunity to introduce new business model using In App Purchase.
 
 
 **Opportunities going forward**</p>
