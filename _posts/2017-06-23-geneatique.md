@@ -22,11 +22,14 @@ By bringing its first software to the Windows Store, CDIP saw a great opportunit
 
 As more and more their customers are running their current Desktop Genealogy Software called Geneatique over Windows 10, CDIP decided to distribute this Software through Windows Store</p>
 
- ![Company logo](/images/2017-06-23-geneatique/cdip.png)
+ ![Company logo](/images/2017-06-23-geneatique/cdip.png) 
+ ![Team](/images/2017-06-23-geneatique/geneatique_2.png) ![Team](/images/2017-06-23-geneatique/geneatique_3.png)
 
 The easiest approach was to use the Desktop Bridge App Converter to automatically convert their Desktop Application into packages distributed with Windows Store.
 This effort did start last year using Windows 10 Anniversary Update, unfortunatelly the packages generated for this version of Windows 10 was instable: the application installed from those packages oftentimes crashed while the user was sing the embedded Web Browser.
 Since Creator Update the packages are stable and the application is able to run the embedded Web Browser without crashing.</p>
+
+ ![Team](/images/2017-06-23-geneatique/geneatique_5.png)
 
 The solution relies on :</p>
 - [Desktop App Converter](https://www.microsoft.com/fr-fr/store/p/desktop-app-converter/9nblggh4skzw) : Used to automatically convert the Desktop Application into a package compliant with Windows Store</p>
@@ -97,7 +100,7 @@ You can now generate the package for Geneatique application. As the application 
 
 1. Copy the latest version of Geneatique Installation Application on your machine.</p>
 
-2. Create the Win32 package with DesktopAppConverter, enter the following command in the command shell window:</p>
+2. Create the Win32 package with DesktopAppConverter, enter the following command in the command shell window. The installation program uses the two options "/SILENT /NORESTART" to launch a silent installation</p>
 
 
        DesktopAppConverter.exe -Installer C:\projects\geneatique\inputs\setup-geneatique2017.exe -InstallerArguments "/SILENT /NORESTART" -Destination "C:\projects\geneatique\outputs" -AppExecutable "Geneatique.exe" -PackageName "Geneatique2017" -PackageDisplayName "Généatique 2017" -AppDisplayName "Généatique 2017" -AppDescription  "Logiciel de Généalogie : Généatique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
@@ -138,7 +141,7 @@ If you don't have a company certificate you can create your own test certificate
        "C:\Program Files (x86)\Windows Kits\10\bin\x64\pvk2pfx.exe" -pvk  C:\projects\Geneatique\outputs\TempCert.pvk -spc C:\projects\Geneatique\outputs\TempCert.cer -pfx C:\projects\Geneatique\outputs\TempCert.pfx
 
 
-3. Once the pfx file is created, you can import the certificat. Double-click on the pfx file, select the « local machine »  for the Store Location and click on the Next button.</p>
+3. Once the pfx file is created, you can import the certificat on the machine where you to test the application package. Double-click on the pfx file, select the « local machine »  for the Store Location and click on the Next button.</p>
 
 ![](/images/2017-06-23-geneatique/geneatique_ux_7.png)
 
