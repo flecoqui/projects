@@ -72,16 +72,21 @@ Since Creator Update the packages are stable and the application is able to run 
 As the main objective of this initiative is to generate Application packages for the latest version of Windows 10 aka Creator Update, you need to prepare your configuration to support Windows 10 Creator Update.</p>
 
 
-1. Install the latest version of Windows 10 (Creator Update) Build 15063 on your machine 
-
-2. Install on the same machine Windows 10 SDK (10.0.15063.0)https://developer.microsoft.com/en-us/windows/downloads/sdk-archive 
+1. Install the latest version of Windows 10 (Creator Update) Build 15063 on your machine
+
+2. Install on the same machine Windows 10 SDK (10.0.15063.0)
+
+
+      https://developer.microsoft.com/en-us/windows/downloads/sdk-archive 
+
 
 3. Install [DesktopAppConverter from Windows Store](https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw) 
 
 4. Download the base image 15063 from there http://aka.ms/converterimages
 
-5. Install the base Image 15063</p>
-Launch DesktopAppConverter.exe and enter the following command in the command shell window:   </p>
+5. Install the base Image 15063</p>
+
+Launch DesktopAppConverter.exe and enter the following command in the command shell window:</p>
 
 
        DesktopAppConverter.exe -Setup -BaseImage C:\temp\BaseImage-15063.wim
@@ -92,62 +97,66 @@ Launch DesktopAppConverter.exe and enter the following command in the command sh
 
 You can now generate the package for Geneatique application. As the application is only available as a Win32 (32 bits), the generated package will only support 32 bits binaries.</p> 
 
-1. Copy the latest version of Geneatique Installation Application on your machine.
+1. Copy the latest version of Geneatique Installation Application on your machine.</p>
 
-2. Create the Win32 package with DesktopAppConverter, enter the following command in the command shell window:   
+2. Create the Win32 package with DesktopAppConverter, enter the following command in the command shell window:</p>
+
 
 
       DesktopAppConverter.exe -Installer C:\projects\geneatique\inputs\setup-geneatique2017.exe -InstallerArguments "/SILENT /NORESTART" -Destination "C:\projects\geneatique\outputs" -AppExecutable "Geneatique.exe" -PackageName "Geneatique2017" -PackageDisplayName "Généatique 2017" -AppDisplayName "Généatique 2017" -AppDescription  "Logiciel de Généalogie : Généatique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
 
 
+
 3. After few minutes the new package is available under "C:\projects\geneatique\outputs\Geneatique2017.appx" . The appx file is built using the files under "C:\projects\geneatique\outputs\PackageFiles". For troubleshooting, you can use the log files under "C:\projects\geneatique\outputs\Logs".
 
-4. You can update the package file for instance to use updated logos. In the command Window launch the following commands:
+4. You can update the package file for instance to use updated logos. In the command Window launch the following commands:</p>
 
 
-     "C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\geneatique\outputs\PackageFiles" /p "C:\projects\geneatique\outputs\Geneatique2017.appx"
+       "C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\geneatique\outputs\PackageFiles" /p "C:\projects\geneatique\outputs\Geneatique2017.appx"
+
+5. The Appx file is now ready to be published, you only need to sign the package wit the company certificate using the following command line: </p>
 
 
-5. The Appx file is now ready to be published, you only need to sign the package wit the company certificate using the following command line:
+      "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\geneatique\outputs\Certificate.pfx -p [password] -fd SHA256 -v C:\projects\geneatique\outputs\Geneatique2017.appx
 
 
-      "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\geneatique\outputs\Certificate.pfx -p [password] -fd SHA256 -v C:\projects\geneatique\outputs\Geneatique2017.appx
+6. Now the Appx file is ready to be published. You can test the installation using the following Powershell command: </p>
 
-
-6. Now the Appx file is ready to be published. You can test the installation using the following Powershell command :    
-
-
-Add-AppxPackage -Path C:\projects\geneatique\outputs\Geneatique2017.appx     
+
+      Add-AppxPackage -Path C:\projects\geneatique\outputs\Geneatique2017.appx
 
 
 
 If you don't have a company certificate you can create your own test certificate using the command lines below:
 
 
-1. Create a certificate using the command lines:
+1. Create a certificate using the command lines: </p>
 
 
-"C:\Program Files (x86)\Windows Kits\10\bin\x64\makecert.exe" -r -h 0 -n "CN=videolan" -eku 1.3.6.1.5.5.7.3.3 -pe -sv C:\projects\VLCCentennial\outputs\17052017\TempCert.pvk C:\projects\VLCCentennial\outputs\17052017\TempCert.cer
+        "C:\Program Files (x86)\Windows Kits\10\bin\x64\makecert.exe" -r -h 0 -n "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR"  -eku 1.3.6.1.5.5.7.3.3 -pe -sv C:\projects\Geneatique\outputs\TempCert.pvk C:\projects\Geneatique\outputs\TempCert.cer
 
 
-2. Create the pfx file using the command lines:
+2. Create the pfx file using the command lines:</p>
 
 
-"C:\Program Files (x86)\Windows Kits\10\bin\x64\pvk2pfx.exe" -pvk  C:\projects\VLCCentennial\outputs\17052017\TempCert.pvk -spc C:\projects\VLCCentennial\outputs\17052017\TempCert.cer -pfx C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx
+         "C:\Program Files (x86)\Windows Kits\10\bin\x64\pvk2pfx.exe" -pvk  C:\projects\Geneatique\outputs\TempCert.pvk -spc C:\projects\Geneatique\outputs\TempCert.cer -pfx C:\projects\Geneatique\outputs\TempCert.pfx
 
 
 3. Once the pfx file is created, you can import the certificat. Double-click on the pfx file, select the « local machine »  for the Store Location and click on the Next button.
 
- ![](/images/2017-06-23-geneatique/geneatique_ux_7.png)
+         ![](/images/2017-06-23-geneatique/geneatique_ux_7.png)
 
 
 4. Enter the password associated with your certificate and click on the Next button.
 
- ![](/images/2017-06-23-geneatique/geneatique_ux_9.png)
+         ![](/images/2017-06-23-geneatique/geneatique_ux_9.png)
+
 
 5. Finally select « trusted people » certificate store, click on the Next button and Finish button to complete the import.
 
- ![](/images/2017-06-23-geneatique/geneatique_ux_8.png)
+         ![](/images/2017-06-23-geneatique/geneatique_ux_8.png)
+
+
 
 
 
