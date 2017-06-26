@@ -80,15 +80,23 @@ As the main objective of this initiative is to generate Application packages for
 
 3. Install [DesktopAppConverter from Windows Store](https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw) 
 
-4. Download the base image 15063 from there http://aka.ms/converterimages
+4. Switch your machine to developer mode under Settings - Update & Security - For Developers 
 
-5. Install the base Image 15063. Launch DesktopAppConverter.exe and enter the following command in the command shell window:</p>
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_11.png)
+
+5. Add the container feature
+
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_10.png)
+
+6. Download the base image 15063 from there http://aka.ms/converterimages
+
+7. Install the base Image 15063. Launch DesktopAppConverter.exe and enter the following command in the command shell window:</p>
 
 
        DesktopAppConverter.exe -Setup -BaseImage C:\temp\BaseImage-15063.wim
 
 
-6. Your machine is now configured to generate Application packages for Windows 10 Creator Update.
+8. Your machine is now configured to generate Application packages for Windows 10 Creator Update.
 
 
 You can now generate the package for Geneatique application. As the application is only available as a Win32 (32 bits), the generated package will only support 32 bits binaries.</p> 
@@ -122,11 +130,21 @@ You can now generate the package for Geneatique application. As the application 
 
 You can also install the package file in double-clicking on the file Geneatique2017.appx in the file explorer.
 
- ![Team](/images/2017-06-23-geneatique/geneatique_ux_1.png)
- ![Team](/images/2017-06-23-geneatique/geneatique_ux_2.png)
- ![Team](/images/2017-06-23-geneatique/geneatique_ux_3.png)
- ![Team](/images/2017-06-23-geneatique/geneatique_ux_4.png)
+1. Double-click on the file Geneatique2017.appx in the file explorer, on the dialog box "Install Généatique 2017", click on the button "Install"
 
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_1.png)
+
+2. The installation program is copying the files on your machine.
+
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_2.png)
+
+3. Once the installation is completed, click on the button "Launch" to launch the application.
+
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_3.png)
+
+4. The Geneatique Welcome dialog box is displayed on the screen.
+
+ ![Team](/images/2017-06-23-geneatique/geneatique_ux_4.png)
 
 
 If you don't have a company certificate you can create your own test certificate using the command lines below:
@@ -161,22 +179,12 @@ If you don't have a company certificate you can create your own test certificate
 
 
 
-
-
-
 ## Conclusion ##
 
-The main objective of this project was to automate the generation of subtitles associated with training courses videos in order to:
+The main objective of this project was to enable CDIP to distribute his application through Windows Store in order to address the 500 Millions devices running Windows 10.
+publisautomate the generation of subtitles associated with training courses videos in order to:
 - increase the reach of Mandarine's services (up-to 8 subtitle languages per video)
 - improve the time to publish the videos 
-
-Beyond those legacy components, the architecture of this deployment is based on the following Azure's components:
-1. Azure Azure Media Services </p>
-2. Azure Cognitive Services Text Translator key</p>
-3. Azure Search Services Account </p>
-4. Azure Web App </p>
-5. Microsoft Bot Framework (Node.js) </p>
-6. Azure Virtual Machines running the Ubuntu and Apache/PHP/Symfony/MySQL. </p>
 
 
 **Measurable impact/benefits resulting from the implementation of the solution:**</p>
@@ -190,26 +198,18 @@ Regarding Mike the Mandarine's Bot, it's too early to get any insights as the se
 
 
 **Opportunities going forward**</p>
-This project was the first step of the enhancement of Mandarine services. 
-Below a list of services which could improve Mandarine's services:
-1. The Mandarine's Web Site could be extended to propose to each user the most appropriate MOOC based on his journey on the Web Site. A recommendation service based on Azure Machine Learning could improve the user experience.</p>
-2. During Live events, Mandarine would like to enhance their Live MOOC videos with live subtitles as well. The support of this feature will require the developpment of a specific component based on Azure Media Services.</p>
-3. Following the Build 2107 announcement and the support of Skype for Business connector with Microsoft Bot Framework, Mandarine's services could address all the users using Skype For Business.
-
+This project was the first step for the distribution of Geneatique Application through Windows Store.
+Below a list of extensions which could improve Geneatique application running on Windows 10:
+1. Calling the UWP API from the Win32 Application to support Tiles, Notification, Cortana, ...
+2. Use Windows Store In App Purchase API to change the business model associated with the application.
+3. Prepare a full UWP implementation,
 
 ## Additional resources ##
 Below a list of links to resources used by the team:
-- Azure Media Services Explorer:</p>
-https://github.com/Azure/Azure-Media-Services-Explorer </p>
-- Azure ARM template to deploy Azure Media Services, Cognitive Services - Translator Text API, Azure Search: </p>
-https://github.com/flecoqui/azure/tree/master/azure-quickstart-templates/101-media-search-cognitive </p>
-- Sample Application to generate automatically subtitles files in several languages from an original video or audio file using Azure Services:</p>
-https://github.com/flecoqui/azure/tree/master/Samples/TestAzureMediaIndexer </p>
-- Speech-To-Text UWP Sample Application:</p>
-https://github.com/flecoqui/Windows10/tree/master/Samples/SpeechToTextUWPSampleApp </p>
-- Text Translator UWP Sample Application:</p>
-https://github.com/flecoqui/Windows10/tree/master/Samples/TranslatorTextUWPSampleApp </p>
-- Speech-To-Text Javascript Sample Application:</p>
-https://github.com/davrous/BingSpeech </p>
-- PHP Text Translation Sample </p>
-https://github.com/MicrosoftTranslator/HTTP-Code-Samples </p>
+- Desktop Bridge:</p>
+https://developer.microsoft.com/en-us/windows/bridges/desktop </p>
+- Desktop app bridge to UWP Samples on github: </p>
+https://github.com/Microsoft/DesktopBridgeToUWP-Samples </p>
+- Startup Desktop Bridge extension for UWP application Sample Application:</p>
+https://github.com/flecoqui/Windows10/tree/master/Samples/StartupUWP </p>
+
