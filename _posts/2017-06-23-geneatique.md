@@ -119,9 +119,8 @@ You can now generate the package for Geneatique application. As the application 
 
 6. Now the Appx file is ready to be published. You can test the installation using the following Powershell command: </p>
 
-
-       Add-AppxPackage -Path C:\projects\geneatique\outputs\Geneatique2017.appx
 
+       Add-AppxPackage -Path C:\projects\geneatique\outputs\Geneatique2017.appx
 
 
 If you don't have a company certificate you can create your own test certificate using the command lines below:
