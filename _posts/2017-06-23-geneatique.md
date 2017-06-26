@@ -69,66 +69,85 @@ Since Creator Update the packages are stable and the application is able to run 
  
 ## Solution and steps ##
 
-### Overall Architecture
-
-As the main objective of this initiative is to enhance the existing Mandarine services, the architecture of this deployment will take into account all the legacy components technologies used by Mandarine services.
-For instance, the database server is based on MySQL Server and this server is hosted in Azure's datacenter. These training video files are hosted on a third-party streaming platform.</p>
-On the technologies side, the servers are running Ubuntu, the Web Servers are based on Apache/PHP/Symfony. The backend services are developed using Node.js.The Web Servers will be hosted in Azure. 
-The client application is actually a Web Application running in any browsers.</p>
+As the main objective of this initiative is to generate Application packages for the latest version of Windows 10 aka Creator Update, you need to prepare your configuration to support Windows 10 Creator Update.</p>
 
 
-1. Install the latest RS2 (Creator Update) Build 15063 on your PC running Windows 10
-2. Install Windows 10 SDK (10.0.15063.0)https://developer.microsoft.com/en-us/windows/downloads/sdk-archive 
+1. Install the latest version of Windows 10 (Creator Update) Build 15063 on your machine 
+
+2. Install on the same machine Windows 10 SDK (10.0.15063.0)https://developer.microsoft.com/en-us/windows/downloads/sdk-archive 
 
-3. Install DesktopAppConverter from Windows Store
+3. Install [DesktopAppConverter from Windows Store](https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw) 
+
 4. Download the base image 15063 from there http://aka.ms/converterimages
 
-5. Install the base Image 15063   Launch DesktopAppConverter.exe and enter the following command in the command shell window:   DesktopAppConverter.exe -Setup -BaseImage C:\projects\VLCCentennial\inputs\BaseImage-15063.wim
+5. Install the base Image 15063</p>
+Launch DesktopAppConverter.exe and enter the following command in the command shell window:   </p>
 
-6. Download the latest Win32 VLC build (vlc-3.0.0-<YYYYMMDD>-<XXXX>-git-win32.exe) and Win64 VLC build (vlc-3.0.0-<YYYYMMDD>-<XXXX>-git-win64.exe) from respectively   Win32   http://nightlies.videolan.org/build/win32/   Win64   http://nightlies.videolan.org/build/win64/
 
-7. Create Win32 and Win64 Appx    Launch DesktopAppConverter.exe and enter the following command in the command shell window:   Win32DesktopAppConverter.exe -Installer C:\projects\VLCCentennial\inputs\binaries\vlc-3.0.0-20170517-0254-git-win32.exe -InstallerArguments "/S /V/qn" -AppExecutable "C:\Program Files (x86)\VideoLAN\VLC\VLC.exe" -Destination "C:\projects\VLCCentennial\outputs\17052017\VLCWin32" -PackageName VLC -Publisher CN=videolan -Version 0.0.0.1 -MakeAppx   Win64DesktopAppConverter.exe -Installer C:\projects\VLCCentennial\inputs\binaries\vlc-3.0.0-20170517-0454-git-win64.exe -InstallerArguments "/S /V/qn" -AppExecutable "C:\Program Files\VideoLAN\VLC\VLC.exe" -Destination "C:\projects\VLCCentennial\outputs\17052017\VLCWin64" -PackageName VLC -Publisher CN=videolan -Version 0.0.0.1 -MakeAppx
+       DesktopAppConverter.exe -Setup -BaseImage C:\temp\BaseImage-15063.wim
 
-8. Update the package logos under (Add logos):    VLCWin32\VLC\PackageFiles\Assets   VLCWin64\VLC\PackageFiles\Assets
 
-9. Update the Win32 and Win64 Appx with the new logos   In the command Window launch the following commands:   Win32"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\PackageFiles" /p "C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\VLC.appx“   Win64"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\PackageFiles" /p "C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\VLC.appx“
-10. Create the certificate
+6. Your machine is now configured to generate Application packages for Windows 10 Creator Update.
+
+
+You can now generate the package for Geneatique application. As the application is only available as a Win32 (32 bits), the generated package will only support 32 bits binaries.</p> 
+
+1. Copy the latest version of Geneatique Installation Application on your machine.
+
+2. Create the Win32 package with DesktopAppConverter, enter the following command in the command shell window:   
+
+
+      DesktopAppConverter.exe -Installer C:\projects\geneatique\inputs\setup-geneatique2017.exe -InstallerArguments "/SILENT /NORESTART" -Destination "C:\projects\geneatique\outputs" -AppExecutable "Geneatique.exe" -PackageName "Geneatique2017" -PackageDisplayName "Généatique 2017" -AppDisplayName "Généatique 2017" -AppDescription  "Logiciel de Généalogie : Généatique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
+
+
+3. After few minutes the new package is available under "C:\projects\geneatique\outputs\Geneatique2017.appx" . The appx file is built using the files under "C:\projects\geneatique\outputs\PackageFiles". For troubleshooting, you can use the log files under "C:\projects\geneatique\outputs\Logs".
+
+4. You can update the package file for instance to use updated logos. In the command Window launch the following commands:
+
+
+     "C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe" pack /d "C:\projects\geneatique\outputs\PackageFiles" /p "C:\projects\geneatique\outputs\Geneatique2017.appx"
+
+
+5. The Appx file is now ready to be published, you only need to sign the package wit the company certificate using the following command line:
+
+
+      "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\geneatique\outputs\Certificate.pfx -p [password] -fd SHA256 -v C:\projects\geneatique\outputs\Geneatique2017.appx
+
+
+6. Now the Appx file is ready to be published. You can test the installation using the following Powershell command :    
+
+
+Add-AppxPackage -Path C:\projects\geneatique\outputs\Geneatique2017.appx     
+
+
+
+If you don't have a company certificate you can create your own test certificate using the command lines below:
+
+
+1. Create a certificate using the command lines:
+
+
 "C:\Program Files (x86)\Windows Kits\10\bin\x64\makecert.exe" -r -h 0 -n "CN=videolan" -eku 1.3.6.1.5.5.7.3.3 -pe -sv C:\projects\VLCCentennial\outputs\17052017\TempCert.pvk C:\projects\VLCCentennial\outputs\17052017\TempCert.cer
 
-11. Create the pfx file
+
+2. Create the pfx file using the command lines:
+
+
 "C:\Program Files (x86)\Windows Kits\10\bin\x64\pvk2pfx.exe" -pvk  C:\projects\VLCCentennial\outputs\17052017\TempCert.pvk -spc C:\projects\VLCCentennial\outputs\17052017\TempCert.cer -pfx C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx
 
-12. Import the certificat in « local machine » « trusted people » 
 
-13. Sign the Win32 and Win64 Appx    In the command Window launch the following commands:    Win32"C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx -fd SHA256 -v C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\VLC.appx    Win64 "C:\Program Files (x86)\Windows Kits\10\bin\x64\signtool.exe" sign -f C:\projects\VLCCentennial\outputs\17052017\TempCert.pfx -fd SHA256 -v C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\VLC.appx 
+3. Once the pfx file is created, you can import the certificat. Double-click on the pfx file, select the « local machine »  for the Store Location and click on the Next button.
 
-14. Install the Win32 and Win64 Appx    In the Powershell command Window launch the following commands:    Win32    Add-AppxPackage -Path C:\projects\VLCCentennial\outputs\17052017\VLCWin32\VLC\VLC.appx     Win64    Add-AppxPackage -Path C:\projects\VLCCentennial\outputs\17052017\VLCWin64\VLC\VLC.appx 
+ ![](/images/2017-06-23-geneatique/geneatique_ux_7.png)
 
-Préparation du Setup : 
- 
-1. le setup d’installation de l’application doit être généré en un seul fichier ( et non plusieur binaire) 2. Tous les modules exécutés depuis votre setup d'installation (Section [run] de l’iss si vous utilisez ‘Inno Setup’) doivent être lancer en mode SILENT et NORESTART, sinon la génération de l’appx reste bloquée. 
- 
-Configuration système requise : 
- 
-Pour générer un Appx vous aurez besoin d'un version de Windows 10 (Entreprise ou pro). Assurez-vous que vous utilisez la mise à jour anniversaire de Windows 10 (14393.0 ou versions ultérieures). 
- 
-Préparation de l'environnement : 
- 
-1. Installer DesktopConverter disponible ici : https://www.microsoft.com/en-us/store/p/desktopappconverter/9nblggh4skzw .  2. Installer Windows container en suivant les instructions : https://docs.microsoft.com/en-us/virtualization/windowscontainers/quick-start/quick-st art-windows-10 3. Télécharger une image de base compatible avec votre version de windows installé  4. Exécuter "Desktop Bridge Converter" en tant qu'admin 5. Commencer par l'installation de l'environnement en utilisant l'image de base téléchargé     DesktopAppConverter.exe -Setup -BaseImage "C:\Téléchargement\BaseImage-<version>.win"  
-Génération de l'appx : 
- 1. Générer votre APPX avec la commande :  DesktopAppConverter.exe -Installer "C:\Votresetup.exe" -InstallerArgument "/SILENT /NORESTART" -Destination "c:\VotreSortie" -PackageName "Geneatique2017" -PackageDisplayName "Généatique 2017" -AppDisplayName "Généatique 2017" -AppDescription  "Logiciel de Généalogie : Généatique 2017" -AppExecutable "Geneatique.exe" -Version 1.0.8.0 -Publisher "CN=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, OU=Secure Application Development, O=CENTRE DE DEVELOPPEMENT DE L''INFORMATIQUE PERSONNELLE, L=OSNY, S=Val-d''Oise, C=FR" - MakeAppx -Verbose  
- 
-Une fois la génération de l'appx terminée. Dans le dossier de sortie vous aurez - Un dossier  "log" , - Un dossier "PackageFiles" , - Geneatique.appx > Le dossier "PackageFiles" contient l'ensemble des fichiers nécessaire à la génération de l'appx. Tous les autres appx seront généré uniquement à partire de ce dossier. 
 
- 
-Mise à jour de l'appx : 
- 
- - Placer dans le dossier "PackageFiles" tous les fichiers modifiés puis régénérer l'appx avec la commande "MakeAppx"   makeappx pack -d "c:\VotreSortie\PackageFiles" -p "C:\VotreSortie\Geneatique.appx" 
- 
-Signature de l'appx: 
- 
-  - Lancer Windows PowerShell et exécutez la commande :     signtool.exe sign -f "mycertif.pfx" -p password -fd SHA256 -v "appName.Appx"
+4. Enter the password associated with your certificate and click on the Next button.
 
+ ![](/images/2017-06-23-geneatique/geneatique_ux_9.png)
+
+5. Finally select « trusted people » certificate store, click on the Next button and Finish button to complete the import.
+
+ ![](/images/2017-06-23-geneatique/geneatique_ux_8.png)
 
 
 
