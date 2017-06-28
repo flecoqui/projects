@@ -15,7 +15,7 @@ geolocation: France
 permalink: https://microsoft.github.io/techcasestudies/studioscrap.html
 ---
 
-Microsoft teamed up with CDIP to their popular scrapbooking software, Studio Scrap, to the Universal Windows Platform (UWP), using Desktop Bridge.
+Microsoft teamed up with CDIP to convert their popular scrapbooking software, Studio Scrap, to the Universal Windows Platform (UWP), using Desktop Bridge.
 
 Studio Scrap is a leading scrapbooking software in France that provides tools to create picture albums, album arts, posters, ... studioscrap is a very comprehensive and high-performance tool, renowned as one of the best family scrapbooking software program on the market. 
 By bringing its first software to the Windows Store, CDIP saw a great opportunity to increase the number of downloads, reach more than 400 million PC around the world, provide a richer user experience and benefit from a simpler installation and update process management.
@@ -58,7 +58,9 @@ Studio Scrap is a classic Win32 Desktop application available from their officia
 
 
 The easiest approach was to use the Desktop Bridge App Converter to automatically convert their Desktop Application into packages distributed with the Windows Store.
-The Win32 installation program does create subfolders in the pictures folder on the machine where the application is installed, when installing an APPX package, it's not possible to create such folders. The CDIP engineering team decided to update the code of the Win32 Studio Scrap application when the application is launched for the first time. 
+For the first attempt, they did face the following issue: </p>
+by default, the Win32 installation program does create subfolders in the pictures folder on the machine where the application is installed, unfortunately when installing an APPX package, it's not possible to create such folders. </p>
+The CDIP engineering team decided to update the code of the Win32 Studio Scrap application to create subfolders in the pictures folder when the application is launched for the first time. 
 With this code update, it was possible to automatically convert the Studio Scrap Win32 Desktop Application into a package which could be deployed through Windows Store.</p>
  
 ## Solution and steps ##
@@ -205,4 +207,5 @@ https://developer.microsoft.com/en-us/windows/bridges/desktop </p>
 https://github.com/Microsoft/DesktopBridgeToUWP-Samples </p>
 - Startup Desktop Bridge extension for UWP application Sample Application:</p>
 https://github.com/flecoqui/Windows10/tree/master/Samples/StartupUWP </p>
+
 
