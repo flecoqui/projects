@@ -180,7 +180,7 @@ If you don't have a company certificate you can create your own test certificate
 ## Conclusion ##
 
 The main objective of this project was to enable CDIP to distribute his application through the Windows Store in order to address the 500 Million devices running Windows 10.
-After a first unsuccessful attempt to install the converted package, the Win32 Desktop application has been updated to create the pictures folders at first launch once the package is installed (if the pictures folders doesn't exist).
+After a first unsuccessful attempt to install the converted package, the Win32 Desktop application has been updated to create the pictures folders at first launch once the package is installed (if the pictures folders don't exist).
 The application generated and installed through the Windows Store is now fully functioning.
 
 
