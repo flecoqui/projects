@@ -140,7 +140,7 @@ You can also install the package file in double-clicking on the file studioscrap
 
 4. The studioscrap Welcome dialog box is displayed on the screen.
 
- ![Team](/images/2017-06-28-studioscrap/studioscrap_ux_4.png)
+ ![Team](/images/2017-06-28-studioscrap/studioscrap_ux_6.png)
 
 
 If you don't have a company certificate you can create your own test certificate using the command lines below:
