@@ -17,8 +17,7 @@ permalink: https://microsoft.github.io/techcasestudies/studioscrap.html
 
 Microsoft teamed up with CDIP to convert their popular scrapbooking software, Studio Scrap, to the Universal Windows Platform (UWP), using Desktop Bridge.
 
-Studio Scrap is a leading scrapbooking software in France that provides tools to create picture albums, album arts, posters, ... studioscrap is a very comprehensive and high-performance tool, renowned as one of the best family scrapbooking software program on the market. 
-By bringing its first software to the Windows Store, CDIP saw a great opportunity to increase the number of downloads, reach more than 400 million PC around the world, provide a richer user experience and benefit from a simpler installation and update process management.
+Studio Scrap is a very powerful and easy-to-use scrapbooking software that provides tools to create all kinds of graphic projects, from scrapbooking pages to photo albums, posters or leaflets. When they brought their first software to the Windows Store, Généatique, CDIP saw the resulting benefits of the migration. They want to renew the experience with Studio Scrap, thus providing the opportunity to reach more the 400 million PC around the world, to increase the number of downloads and offer a richer user experience and a simpler installation and update process management.
 
 As more and more of their customers are running the current Desktop Scrapbooking Software on Windows 10, CDIP decided to distribute this Software through the Windows Store</p>
 
@@ -47,6 +46,9 @@ The solution relies on :</p>
 
 **CDIP** is an ISV specialized in genealogy, scrapbooking and old mapping. Their main product is Studio Scrap, a leading scrapbooking software in France that provides tools for scraping. Studio Scrap is a very comprehensive and high-performance tool.
 The Studio Scrap software can be purchased online or in DVD.
+Two versions are available for sale:</p>
+-	 a classic version available for a price of 29.95 euros </p>
+-	 a deluxe version with extended functionalities for 44.95 euros.</p>
 
  ![Team](/images/2017-06-28-studioscrap/studioscrap_4.png)
 
@@ -54,14 +56,14 @@ The Studio Scrap software can be purchased online or in DVD.
   
 ## Problem statement ##
 
-Studio Scrap is a classic Win32 Desktop application available from their official Web Site. The application is installed with a specific installation program. The Win32 application is not the best experience for Windows 10 users, but CDIP did not want to rewrite all the code to create a new Universal Windows Platform (UWP) app to leverage Windows Store capabilities.
+Studio Scrap software can be purchase online. It is a classic Win32 Desktop application available from their official Web Site. The application is installed with a specific installation program. The Win32 application is not the best experience for Windows 10 users, but CDIP did not want to rewrite all the code to create a new Universal Windows Platform (UWP) app to leverage Windows Store capabilities.
 
 
 The easiest approach was to use the Desktop Bridge App Converter to automatically convert their Desktop Application into packages distributed with the Windows Store.
 For the first attempt, they did face the following issue: </p>
-by default, the Win32 installation program does create subfolders in the pictures folder on the machine where the application is installed, unfortunately when installing an APPX package, it's not possible to create such folders. </p>
+By default, the Win32 installation program does create subfolders in the pictures folder on the machine where the application is installed, unfortunately when installing an APPX package, it's not possible to create such folders. </p>
 The CDIP engineering team decided to update the code of the Win32 Studio Scrap application to create subfolders in the pictures folder when the application is launched for the first time. 
-With this code update, it was possible to automatically convert the Studio Scrap Win32 Desktop Application into a package which could be deployed through Windows Store.</p>
+Once the code has been updated, it was possible to automatically convert the Studio Scrap Win32 Desktop Application into a package which could be deployed through Windows Store.</p>
  
 ## Solution and steps ##
 
@@ -179,7 +181,7 @@ If you don't have a company certificate you can create your own test certificate
 
 ## Conclusion ##
 
-The main objective of this project was to enable CDIP to distribute his application through the Windows Store in order to address the 500 Million devices running Windows 10.
+The main objective of this project was to enable CDIP to distribute its application Studio Scrap through the Windows Store in order to address the 400 Million devices running Windows 10.
 After a first unsuccessful attempt to install the converted package, the Win32 Desktop application has been updated to create the pictures folders at first launch once the package is installed (if the pictures folders don't exist).
 The application generated and installed through the Windows Store is now fully functioning.
 
